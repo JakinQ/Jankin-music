@@ -9,10 +9,14 @@
       </div>
 
       <div class="topContent">
-        <span>我的</span>
-        <span class="active">发现</span>
-        <span>云村</span>
-        <span>视频</span>
+        <span @click="me" :class="this.foundActive === true ? '' : 'active'"
+          >我的</span
+        >
+        <span :class="this.foundActive === true ? 'active' : ''" @click="found"
+          >发现</span
+        >
+        <!-- <span>云村</span>
+        <span>视频</span> -->
       </div>
 
       <!-- 搜索栏 -->
@@ -29,26 +33,45 @@
 
 <script>
 export default {
-
+  data () {
+    return {
+      foundActive: true
+    }
+  },
+  mounted () {
+    if (this.$route.path === '/infoUser') {
+      this.foundActive = false
+    }
+  },
+  methods: {
+    me: function () {
+      // this.foundActive = false
+      this.$router.push('/infoUser')
+    },
+    found: function () {
+      this.$router.push('/')
+    }
+  }
 }
 </script>
 
 <style lang="less" scoped>
 .topNav {
   width: 100%;
-  padding: 1rem;
   padding: 0.2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   .topContent {
+    color: rgb(126, 126, 126);
     width: 65%;
     height: 100%;
     display: flex;
     justify-content: space-around;
     font-size: 0.36rem;
     .active {
-      font-weight: 900;
+      color: black;
+      font-weight: 550;
     }
   }
 }

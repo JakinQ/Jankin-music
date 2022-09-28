@@ -13,15 +13,7 @@
       >
         <van-swipe-item v-for="item in state.musicList" :key="item">
           <!-- 私人fm -->
-          <!-- <div>
-            <img src="preMusic.picUrl" />
-            <span class="preMusic.playCount">
-              <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-24gl-play "></use>
-              </svg>
-              {{ changCount(preMusic.playCount) }}
-            </span>
-          </div> -->
+
           <!-- 推荐歌单 -->
           <router-link :to="{ path: '/itemMusic', query: { id: item.id } }">
             <span class="item.name"></span>

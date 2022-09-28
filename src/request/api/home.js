@@ -31,3 +31,90 @@ export function getSearchMusic (data) {
     // url: '/check/music?id=33894312'
   })
 }
+
+//    /login/cellphone?phone=xxx&password=yyy
+export function getPhoneLogin (data) {
+  return service({
+    method: 'GET',
+    url: `/login/cellphone?phone=${data.phone}&password=${data.password}`
+
+    // url: '/check/music?id=33894312'
+  })
+}
+
+// 二维码登录
+// 获得key
+export function qrCodeLoginKey (timestamp) {
+  return service({
+    method: 'GET',
+    url: '/login/qr/key?timestamp=\' + timestamp'
+
+    // url: '/check/music?id=33894312'
+  })
+}
+// 生成二维码
+export function qrCodeLoginImg (key) {
+  return service({
+    method: 'GET',
+    url: '/login/qr/create?qrimg=true&key=' + key
+
+  })
+}
+// 检测二维码状态
+export function qrCodeLoginCheck (key, timestamp) {
+  return service({
+    method: 'post',
+    url: '/login/qr/check?key=' + key + '&timestamp=' + timestamp
+
+  })
+}
+
+// 登录状态
+export function loginStatus () {
+  return service({
+    method: 'get',
+    url: '/login/status'
+  })
+}
+// 获取用户信息
+export function getUser1 (cookie, time) {
+  return service({
+    method: 'post',
+    url: 'http://localhost:3000/user/account?time',
+    data: {
+      cookie: cookie
+    }
+
+  })
+}
+
+// 获取用户详细信息
+export function getUser (data) {
+  return service({
+    method: 'post',
+    url: `/user/detail?uid=${data}`
+
+  })
+}
+// 获取登录用户信息 , 歌单，收藏，mv, dj 数量
+export function getUserMore () {
+  return service({
+    method: 'get',
+    url: '/user/subcount'
+  })
+}
+
+// 获取用户歌单
+export function getUserSongList (uid) {
+  return service({
+    url: '/user/playlist?uid=' + uid
+  })
+}
+
+// 获取歌曲详情
+// /song/detail?ids=347230,/song/detail?ids=347230,347231
+// export function getMusicDetail (id) {
+//   return service({
+//     url: '/song/detail?ids=' + id
+//   })
+// }

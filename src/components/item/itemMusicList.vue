@@ -76,7 +76,8 @@
 
 <script>
 import { mapMutations, mapState } from 'vuex'
-// import { musicCopyright } from '@/request/api/item'
+import { musicCopyright } from '@/request/api/item.js'
+
 import 'vant/es/toast/style'
 
 export default {
@@ -109,7 +110,7 @@ export default {
   },
   props: ['itemList', 'subscribedCount'],
   computed: {
-    ...mapState(['isPlaying', 'playListIndex', 'itemList', 'detailShow', 'musicChange'])
+    ...mapState(['isPlaying', 'playListIndex', 'itemList', 'detailShow', 'musicChange', 'audioPlaying'])
 
   },
   methods: {
@@ -120,12 +121,26 @@ export default {
       // console.log(this.itemList[i].id)
       // 检测歌曲版权
       // const res = await musicCopyright(this.itemList[i].id)
+      // console.log('版权', res.data)
       // if (res.data.success !== true) {
-      //   this.$toast('应版权方要求,该歌曲无法免费播放')
-      // }
+
+      // const res = await getMusicDetail(this.itemList[i].id)
+      // console.log('详细', res)
+
       this.updateItemList(this.itemList)
       // console.log(this.musicChange)
       this.updateplayListIndex(i)
+
+      // 如果经过更新下标和列表音乐没有实际播放，说明这首歌没有版权，就要停止按钮改变
+
+      setTimeout(() => {
+        if (!this.audioPlaying) {
+          this.$toast('应版权方要求,该歌曲无法免费播放')
+          this.updateIsPlaying()
+          this.updateAudioPlaying()
+          return
+        }
+      }, 500)
 
       // 当上述两个执行没反应，即不能改变播放状态，意味着点到了同一个音乐，此时跳转到详情页面
       // 要先等待一会等上面两个异步执行完成
@@ -138,7 +153,8 @@ export default {
       // 恢复状态
       this.updateMusicChange(false)
     },
-    ...mapMutations(['updateItemList', 'updateplayListIndex', 'updateIsPlaying', 'updatedetailShow', 'updateMusicChange'])
+    ...mapMutations(['updateItemList', 'updateplayListIndex', 'updateIsPlaying', 'updatedetailShow', 'updateMusicChange', 'updateAudioPlaying'])
+
   }
 
 }

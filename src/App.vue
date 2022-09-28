@@ -1,7 +1,8 @@
 <template>
   <router-view />
+  <!-- <TopNav></TopNav> -->
   <!-- 底部播放栏全局组件 -->
-  <FooterMusic></FooterMusic>
+  <FooterMusic v-show="$store.state.isFooterMusic"></FooterMusic>
   <!-- <FooterMusic v-show="$store.state.isFooterMusic"/> -->
 </template>
 

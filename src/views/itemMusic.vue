@@ -28,16 +28,19 @@ export default {
     onMounted(async () => {
       //   console.log(useRoute())
       const id = useRoute().query.id
+      // console.log('id:', id)
       // 获取歌单列表
       const res = await getItemMusicList(id)
-      // console.log(res)
+      // console.log('歌单列表', res)
       state.playlist = res.data.playlist
-      //   console.log(res)
-      //   console.log(state.playlist)
       // 获取歌单歌曲
       const result = await getItemList({ id, limit: 70, offset: 0 })
-      console.log(state.playlist)
+      // console.log('歌曲列表', state.playlist)
+      // state.itemList = result.data.songs
+
       state.itemList = result.data.songs
+      console.log('歌曲列表', state.itemList)
+
       //   console.log(state.itemList[0].al)
       // 防止页面刷新，数据丢失，将数据保存到sessionstore
       sessionStorage.setItem('itemDetail', JSON.stringify(state))

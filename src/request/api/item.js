@@ -25,7 +25,7 @@ export function musicCopyright (data) {
   })
 }
 
-// 获取歌单的所有歌曲 /lyric?id=33894312
+// 获取歌单的所有歌词 /lyric?id=33894312
 export function getMusicLyric (data) {
   return service({
     method: 'GET',

@@ -36,6 +36,8 @@
     <!-- audio播放器 -->
     <audio
       ref="audio"
+      @play="onPlay"
+      @error="onError"
       :src="`https://music.163.com/song/media/outer/url?id=${itemList[playListIndex].id}.mp3`"
     ></audio>
 
@@ -45,12 +47,15 @@
       position="bottom"
       :style="{ height: '100%', width: '100%' }"
     >
+      <!-- @func  子传父 -->
       <!-- 歌曲播放页面 -->
       <MusicDetail
         :musicList="itemList[playListIndex]"
         :play="play"
         :isPlaying="isPlaying"
         :addDuration="addDuration"
+        :updateTime="updateTime"
+        @inputIsChange="inputIsChange"
       ></MusicDetail>
     </van-popup>
   </div>
@@ -74,15 +79,22 @@ export default {
   },
   computed: {
     // 解构
-    ...mapState(['itemList', 'playListIndex', 'isPlaying', 'detailShow', 'musicChange'])
+    ...mapState(['itemList', 'playListIndex', 'isPlaying', 'detailShow', 'musicChange', 'audioPlaying', 'lyricList', 'currentTime'])
 
   },
   // 所有数据变化都会触发
   updated () {
     // itemlist改变传id给vuex获取歌词
     this.$store.dispatch('getLyric', this.itemList[this.playListIndex].id)
-    this.addDuration()
+    // console.log(this.lyricList)
+    // 切换歌曲时候，要延时才能获取duration
+    // debugger
+    setTimeout(() => {
+      this.addDuration()
+    }, 600)
+    // this.addDuration()
   },
+
   mounted () {
     // console.log(this.$refs)
     this.$store.dispatch('getLyric', this.itemList[this.playListIndex].id)
@@ -95,12 +107,12 @@ export default {
     updateTime: function () {
       this.interVal = setInterval(() => {
         this.updateCurrentTime(this.$refs.audio.currentTime)
-        // this.$store.dispatch('updateCurrentTime', this.$refs.audio.currentTime)
       }, 1300)
     },
     play: function () {
       // 如果音乐暂停就播放
       if (this.$refs.audio.paused) {
+        // console.log('this.audioPlaying', this.audioPlaying)
         this.$refs.audio.play()
         this.updateIsPlaying()
         this.updateTime()
@@ -108,6 +120,7 @@ export default {
         // 否则暂停
         this.$refs.audio.pause()
         this.updateIsPlaying()
+
         // 不播放就清除定时器
         clearInterval(this.interVal)
       }
@@ -116,8 +129,30 @@ export default {
     // 添加进度条
     addDuration: function () {
       this.updateDuration(this.$refs.audio.duration)
+
+      console.log('当前歌曲长度', this.$refs.audio.duration)
     },
-    ...mapMutations(['updateIsPlaying', 'updatedetailShow', 'updateMusicChange', 'updateCurrentTime', 'updateDuration'])
+    // 通过子传父监听进度条是否被拖动或者点击  父组件在子组件添加@event标签   子组件 this.$emit('event', data)
+    inputIsChange: function (val) {
+      if (val) {
+        this.$refs.audio.currentTime = this.currentTime
+      }
+      val = false
+    },
+    ...mapMutations(['updateIsPlaying', 'updatedetailShow', 'updateMusicChange', 'updateCurrentTime', 'updateDuration', 'updateAudioPlaying']),
+
+    // 当音频播放
+    onPlay: function () {
+      // console.log('开始播放声音')
+      // console.log('是否暂停', this.$refs.audio.paused)
+    },
+
+    onError () {
+      // console.log('播放出错')
+      this.updateAudioPlaying()
+      // console.log(this.audioPlaying)
+    }
+
   },
 
   // initScroll () {
@@ -127,18 +162,23 @@ export default {
 
   // 数据改变时触发
   watch: {
+
     playListIndex: function () {
-      // console.log(this.musicChange)
-      // debugger
       // 播放音乐
       this.$refs.audio.autoplay = true
-
       // 此时图标为暂停时，该更图标
-      if (this.$refs.audio.paused) {
+
+      // console.log(this.isPlaying)
+
+      // if (this.$refs.audio.paused) {
+      if (!this.isPlaying) {
+        // console.log(this.isPlaying)
         this.updateIsPlaying()
       }
+
       // 触发状态改变musicChange也改变
       this.updateMusicChange(true)
+
       // console.log(this.musicChange)
       // debugger
     },
@@ -148,7 +188,10 @@ export default {
       if (!this.isPlaying) {
         this.$refs.audio.autoplay = true
         // 因为h5的bug，当autoplay了audio.paused也还是true，只能手动加一个play才能抵消不能判断paused的影响
-        this.$refs.audio.play()
+        this.$nextTick(function () {
+          // DOM 更新了
+          this.$refs.audio.play()
+        })
         this.updateIsPlaying()
       } else if (this.playListIndex === 0) { // 当遇到下标都为0时，playListIndex不能触发，无法改变状态，只能走这几条代码改变状态
         this.$refs.audio.autoplay = true

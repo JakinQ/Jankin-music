@@ -56,13 +56,13 @@
       <svg class="icon" aria-hidden="true">
         <use xlink:href="#icon-iconfontzhizuobiaozhun023110"></use>
       </svg>
-      <span>{{ playlist.commentCount }}</span>
+      <span>{{ changeCount(playlist.commentCount) }}</span>
     </div>
     <div class="footerItem">
       <svg class="icon" aria-hidden="true">
         <use xlink:href="#icon-fenxiang"></use>
       </svg>
-      <span>{{ playlist.shareCount }}</span>
+      <span>{{ changeCount(playlist.shareCount) }}</span>
     </div>
     <div class="footerItem">
       <svg class="icon" aria-hidden="true">
@@ -94,7 +94,7 @@ export default {
         return (num / 100000000).toFixed(0) + '亿'
       } else if (num >= 10000) {
         return (num / 10000).toFixed(0) + '万'
-      }
+      } else { return num }
     }
     // console.log(props)
     return { changeCount }
