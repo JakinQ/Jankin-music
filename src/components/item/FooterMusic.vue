@@ -86,6 +86,7 @@ export default {
   updated () {
     // itemlist改变传id给vuex获取歌词
     this.$store.dispatch('getLyric', this.itemList[this.playListIndex].id)
+    // alert(1)
     // console.log(this.lyricList)
     // 切换歌曲时候，要延时才能获取duration
     // debugger
@@ -130,7 +131,7 @@ export default {
     addDuration: function () {
       this.updateDuration(this.$refs.audio.duration)
 
-      console.log('当前歌曲长度', this.$refs.audio.duration)
+      // console.log('当前歌曲长度', this.$refs.audio.duration)
     },
     // 通过子传父监听进度条是否被拖动或者点击  父组件在子组件添加@event标签   子组件 this.$emit('event', data)
     inputIsChange: function (val) {

@@ -10,5 +10,12 @@ module.exports = defineConfig({
         resolvers: [VantResolver()]
       })
     ]
-  }
+  },
+  devServer: {
+
+ historyApiFallback: true,
+allowedHosts: 'all',
+
+}
 })
+

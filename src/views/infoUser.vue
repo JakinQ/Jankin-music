@@ -5,7 +5,7 @@
   </div> -->
   <div>
     <!-- 顶部栏 -->
-    <TopNav class="TopNav"></TopNav>
+    <TopNav class="TopNav" v-show="!detailShow"></TopNav>
     <!-- 空盒子 -->
     <div class="space"></div>
     <!-- 整个大模块固定位置, -->
@@ -279,7 +279,7 @@ export default {
     return { activeNames }
   },
   computed: {
-    ...mapState(['userList'])
+    ...mapState(['userList', 'detailShow'])
 
   },
   async mounted () {
@@ -293,7 +293,6 @@ export default {
     // 获取用户的歌单
     const res2 = await getUserSongList(this.userList.profile.userId)
     this.playList = res2.data.playlist
-    console.log(this.playList)
   },
   methods: {
     a: function () {
@@ -330,128 +329,128 @@ export default {
   height: 0.97rem;
   width: 100%;
 }
-// .fixed {
-//   position: fixed;
-//   transform: translateY(0.97rem);
-//   width: 100%;
-.userTop {
-  // position: fixed;
-  // transform: translateY(60px);
-  // margin-top: 0.97rem;
-  width: 100%;
-  height: 4.46rem;
-  border-bottom: 0.215rem solid rgb(246, 246, 246);
-
-  .userTopContent {
+.fixed {
+  //   position: fixed;
+  //   transform: translateY(0.97rem);
+  //   width: 100%;
+  .userTop {
     // position: fixed;
-    height: 100%;
-    padding: 0 0.2rem 0 0.2rem;
-    div {
-      height: 25%;
-      // border-bottom: 0.01rem solid rgb(177, 177, 177);
-      display: flex;
-      // margin: auto;
+    // transform: translateY(60px);
+    // margin-top: 0.97rem;
+    width: 100%;
+    height: 4.46rem;
+    border-bottom: 0.215rem solid rgb(246, 246, 246);
 
-      .icon {
-        color: rgb(77, 77, 77);
-        height: 0.486rem;
-        width: 0.468rem;
-        margin: 0.222rem;
-        margin-right: 0.54rem;
-      }
-      .text {
-        width: 100%;
-        height: 100%;
-        font-size: 0.302rem;
-        padding: 0.374rem;
-        padding-left: 0;
-        align-items: center;
-        border-bottom: 0.01rem solid rgb(177, 177, 177);
-      }
-      .t2 {
-        border-bottom: 0;
-      }
-    }
-  }
-}
-.van-cell__title {
-  // position: fixed;
-
-  // transform: translateY(60px);
-
-  // display: flex;
-  div {
-    font-size: 0.34rem;
-    font-weight: 550;
-  }
-}
-.add {
-  position: relative;
-  font-weight: 750;
-  font-size: 0.318rem;
-  top: 0.08rem;
-  right: 18px;
-}
-.svg {
-  position: relative;
-  font-weight: 550;
-  font-size: 0.318rem;
-  right: 0;
-}
-.count {
-  margin-left: 0.1832rem;
-  font-size: 0.1594rem;
-  position: relative;
-  top: -0.08rem;
-  font-weight: 100 !important;
-  color: rgb(166, 166, 166);
-}
-.per,
-.pub {
-  margin-top: 0.334rem;
-}
-.playList {
-  margin-top: 0.334rem;
-
-  // width: 100%;
-  div {
-    display: flex;
-    height: 1.0998rem;
-    margin-bottom: 0.1912rem;
-    position: relative;
-    img {
+    .userTopContent {
+      // position: fixed;
       height: 100%;
-      width: 1.0998rem;
-      margin-right: 0.1912rem;
+      padding: 0 0.2rem 0 0.2rem;
+      div {
+        height: 25%;
+        // border-bottom: 0.01rem solid rgb(177, 177, 177);
+        display: flex;
+        // margin: auto;
+
+        .icon {
+          color: rgb(77, 77, 77);
+          height: 0.486rem;
+          width: 0.468rem;
+          margin: 0.222rem;
+          margin-right: 0.54rem;
+        }
+        .text {
+          width: 100%;
+          height: 100%;
+          font-size: 0.302rem;
+          padding: 0.374rem;
+          padding-left: 0;
+          align-items: center;
+          border-bottom: 0.01rem solid rgb(177, 177, 177);
+        }
+        .t2 {
+          border-bottom: 0;
+        }
+      }
     }
+  }
+  .van-cell__title {
+    // position: fixed;
+
+    // transform: translateY(60px);
+
+    // display: flex;
+    div {
+      font-size: 0.34rem;
+      font-weight: 550;
+    }
+  }
+  .add {
+    position: relative;
+    font-weight: 750;
+    font-size: 0.318rem;
+    top: 0.08rem;
+    right: 18px;
+  }
+  .svg {
+    position: relative;
+    font-weight: 550;
+    font-size: 0.318rem;
+    right: 0;
+  }
+  .count {
+    margin-left: 0.1832rem;
+    font-size: 0.1594rem;
+    position: relative;
+    top: -0.08rem;
+    font-weight: 100 !important;
+    color: rgb(166, 166, 166);
+  }
+  .per,
+  .pub {
+    margin-top: 0.334rem;
+  }
+  .playList {
+    margin-top: 0.334rem;
+
+    // width: 100%;
     div {
       display: flex;
-      flex-direction: column;
-      margin-right: 0.2rem;
+      height: 1.0998rem;
+      margin-bottom: 0.1912rem;
+      position: relative;
+      img {
+        height: 100%;
+        width: 1.0998rem;
+        margin-right: 0.1912rem;
+      }
+      div {
+        display: flex;
+        flex-direction: column;
+        margin-right: 0.2rem;
 
-      .listName {
-        width: 5.1rem;
-        font-size: 0.2876rem;
-        padding: 0.13rem 0 0.11rem 0;
-        color: black;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap; //文本不换行，这样超出一行的部分被截取，显示...
+        .listName {
+          width: 5.1rem;
+          font-size: 0.2876rem;
+          padding: 0.13rem 0 0.11rem 0;
+          color: black;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap; //文本不换行，这样超出一行的部分被截取，显示...
+        }
+        .number {
+          font-size: 0.23rem;
+          padding-bottom: 0.05rem;
+        }
       }
-      .number {
-        font-size: 0.23rem;
-        padding-bottom: 0.05rem;
+      .icon {
+        position: absolute;
+        font-weight: 550;
+        font-size: 0.318rem;
+        right: 0;
+        top: 0.3144rem;
+        fill: rgb(177, 177, 177);
       }
-    }
-    .icon {
-      position: absolute;
-      font-weight: 550;
-      font-size: 0.318rem;
-      right: 0;
-      top: 0.3144rem;
-      fill: rgb(177, 177, 177);
     }
   }
 }
-// }
 </style>

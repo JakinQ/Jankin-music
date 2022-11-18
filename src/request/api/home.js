@@ -1,4 +1,6 @@
 import service from '../index'
+import 'vant/es/toast/style'
+import { Toast } from 'vant'
 
 // 获取首页轮播图数据
 export function getBanner () {
@@ -118,3 +120,11 @@ export function getUserSongList (uid) {
 //     url: '/song/detail?ids=' + id
 //   })
 // }
+// 检测歌曲是否是vip歌曲
+export function checkMusicFree (feeId) {
+  console.log('feeId', feeId)
+  if (!feeId) {
+    return true
+  } else if (feeId === 8) return true
+  else return false
+}

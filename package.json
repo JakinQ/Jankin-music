@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.27.2",
     "better-scroll": "^2.4.2",
+    "bootstrap-icons": "^1.10.2",
     "core-js": "^3.8.3",
     "typescript": "^4.8.2",
     "vant": "^3.6.1",

@@ -76,7 +76,8 @@
 
 <script>
 import { mapMutations, mapState } from 'vuex'
-import { musicCopyright } from '@/request/api/item.js'
+// import { musicCopyright } from '@/request/api/item.js'
+import { checkMusicFree } from '@/request/api/home.js'
 
 import 'vant/es/toast/style'
 
@@ -119,7 +120,21 @@ export default {
       // this.updateIsPlaying()
       // this.id = this.itemList[i].id
       // console.log(this.itemList[i].id)
-      // 检测歌曲版权
+      // console.log(this.itemList[i].fee)
+      // if (this.itemList[i].fee) {
+      //   console.log('vip歌曲无法播放')
+      // }
+      // 检测歌曲版权和vip
+      // const res = await getMusicDetail(this.itemList[i].id)
+      // 检测是否是vip
+      const check = checkMusicFree(this.itemList[i].fee)
+      if (!check) {
+        return this.$toast({
+          message: 'vip歌曲,无法免费播放',
+          position: 'midlle',
+          duration: 1000
+        })
+      }
       // const res = await musicCopyright(this.itemList[i].id)
       // console.log('版权', res.data)
       // if (res.data.success !== true) {
@@ -135,9 +150,12 @@ export default {
 
       setTimeout(() => {
         if (!this.audioPlaying) {
-          this.$toast('应版权方要求,该歌曲无法免费播放')
+          this.$toast('vip歌曲,无法免费播放')
           this.updateIsPlaying()
           this.updateAudioPlaying()
+          // setTimeout(() => {
+          //   this.changeMusic(1)
+          // }, 500)
           return
         }
       }, 500)
@@ -152,6 +170,16 @@ export default {
       }, 250)
       // 恢复状态
       this.updateMusicChange(false)
+    },
+    changeMusic: function (num) {
+      let index = this.playListIndex + num
+      // console.log('触发了上一首/下一首')
+      index = index % this.itemList.length
+
+      if (index < 0) {
+        index = this.itemList.length - 2
+      }
+      this.updateplayListIndex(index)
     },
     ...mapMutations(['updateItemList', 'updateplayListIndex', 'updateIsPlaying', 'updatedetailShow', 'updateMusicChange', 'updateAudioPlaying'])
 

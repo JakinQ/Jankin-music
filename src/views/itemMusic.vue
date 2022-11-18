@@ -8,7 +8,6 @@
       :subscribedCount="state.playlist.subscribedCount"
     />
   </div>
-  <!-- <div>111111111{{ state.playlist }}</div> -->
 </template>
 
 <script >
@@ -39,7 +38,7 @@ export default {
       // state.itemList = result.data.songs
 
       state.itemList = result.data.songs
-      console.log('歌曲列表', state.itemList)
+      // console.log('歌曲列表', state.itemList)
 
       //   console.log(state.itemList[0].al)
       // 防止页面刷新，数据丢失，将数据保存到sessionstore

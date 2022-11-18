@@ -55,6 +55,8 @@
 </template>
 
 <script>
+import { getUser } from '@/request/api/home'
+
 export default {
   data () {
     return {
@@ -68,9 +70,12 @@ export default {
       this.phone = ''
     },
     // 登录
-    Login: function () {
-      const res = this.$store.dispatch('getLogin', { phone: this.phone, password: this.password })
-      console.log(res)
+    Login: async function () {
+      const user = await this.$store.dispatch('getLogin', { phone: this.phone, password: this.password })
+      // console.log(user)
+      const result = await getUser(user.data.account.id)
+      this.$store.commit('updateUserList', result.data)
+
       if (this.phone) {
         this.$store.commit('updateIsLogin', true)
         this.$router.push('/infoUser')

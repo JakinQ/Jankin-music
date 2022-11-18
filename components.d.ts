@@ -17,6 +17,7 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import('vue-router')['RouterView']
     SwpierTop: typeof import('./src/components/home/SwpierTop.vue')['default']
     TopNav: typeof import('./src/components/home/TopNav.vue')['default']
+    VanCell: typeof import('vant/es')['Cell']
     VanCollapse: typeof import('vant/es')['Collapse']
     VanCollapseItem: typeof import('vant/es')['CollapseItem']
     VanIcon: typeof import('vant/es')['Icon']

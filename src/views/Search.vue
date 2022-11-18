@@ -68,7 +68,7 @@
           <div>
             <!-- 歌名和作者 -->
             <p>{{ item.name }}</p>
-            <span v-for="(item2, i2) in item.artists" :key="i2">{{
+            <span v-for="(item2, i2) in item.ar" :key="i2">{{
               item2.name
             }}</span>
           </div>
@@ -91,12 +91,12 @@
 
 <script>
 import { getDefaultWord } from '@/request/api/item'
-import { getSearchMusic } from '@/request/api/home'
-import 'vant/es/toast/style'
+import { getSearchMusic, checkMusicFree } from '@/request/api/home'
 
+import 'vant/es/toast/style'
 // import { onBeforeMount } from 'vue'
 import { mapMutations, mapState } from 'vuex'
-
+// import { Toast } from 'vant'
 export default {
 
   data () {
@@ -150,10 +150,11 @@ export default {
 
       // 发送请求获取搜索数据
       const res = await getSearchMusic(this.searchKey)
-      console.log(res)
+      // console.log(res)
       // 获得数据
       this.searchList = res.data.result.songs
       //   this.searchList = res.data.result.songs
+
       // 置空搜索框
       //   this.searchKey = ''
       // 显示历史记录
@@ -184,7 +185,7 @@ export default {
       //   console.log(res)
     },
     allSinger () {
-      console.log('查看所有歌手')
+      // console.log('查看所有歌手')
     },
     // 删除历史记录
     deleteHistory: function () {
@@ -199,11 +200,19 @@ export default {
       this.isFalseShow = false
     },
     // 点击搜索到的歌曲,加入列表
-    updateIndex: function (item) {
-      // 添加al属性与之前的列表对应
-      //
+    updateIndex: function (item, i) {
+      // 检测是否是vip
+      const check = checkMusicFree(this.searchList[i].fee)
+      if (!check) {
+        return this.$toast({
+          message: 'vip歌曲,无法免费播放',
+          position: 'midlle',
+          duration: 1000
+        })
+      }
+
       //   console.log(this.searchList)
-      console.log('改变前的列表', this.itemList)
+      // console.log('改变前的列表', this.itemList)
 
       this.$store.commit('pushItemList', item)
       this.$store.commit('updateplayListIndex', this.$store.state.itemList.length - 1)

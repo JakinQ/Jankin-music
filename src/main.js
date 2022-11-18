@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './assets/fonts/iconfont.css'
+
 // import axios from 'axios'
 
 import getVant from './plugins/vant'

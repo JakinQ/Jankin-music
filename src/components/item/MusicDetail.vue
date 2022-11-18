@@ -215,17 +215,11 @@ export default {
     //  }
   },
   updated () {
-    // setTimeout(() => {
-    //   if (!this.audioPlaying) {
-    //     this.$toast('应版权方要求,该歌曲无法免费播放')
-    //     this.updateIsPlaying()
-    //     this.updateAudioPlaying()
-    //     return
-    //   }
-    // }, 1000)
-    console.log('动态Duration', this.duration)
   },
+
   mounted () {
+    console.log('lyricList', this.lyricList)
+
     // 处理未翻译的歌词
     if (this.lyricList.lrc.lyric) {
       const arr = this.lyricList.lrc.lyric.split(/[(\r\n)\r\n]+/).map((item, i) => {
@@ -250,36 +244,56 @@ export default {
         } else { item.next = arr[i + 1].time }// 下一首歌的时间
       })
       // 处理翻译的歌词
-      if (this.lyricList.tlyric.lyric) {
+
+      if (this.lyricList.tlyric) {
         const arr2 = this.lyricList.tlyric.lyric.split(/[(\r\n)\r\n]+/).map((item, i) => {
           // 分
-          // const min = item.slice(item.indexOf('[') + 1, item.indexOf(':'))
-          // // 秒
-          // const sec = item.slice(item.indexOf(':') + 1, item.indexOf('.'))
-          // // 毫秒
-          // const mill = item.slice(item.indexOf('.') + 1, item.indexOf(']'))
+          const min = item.slice(item.indexOf('[') + 1, item.indexOf(':'))
+          // 秒
+          const sec = item.slice(item.indexOf(':') + 1, item.indexOf('.'))
+          // 毫秒
+          const mill = item.slice(item.indexOf('.') + 1, item.indexOf(']'))
           // 歌词
           const lrc = item.slice(item.indexOf(']') + 1, item.length)
-          // // 毫秒
-          // const time = parseInt(min) * 60 * 1000 + parseInt(sec) * 1000 + parseInt(mill)
+          // 毫秒
+          const time = parseInt(min) * 60 * 1000 + parseInt(sec) * 1000 + parseInt(mill)
 
-          return { lrc }
+          return { min, sec, mill, lrc, time }
         })
 
-        arr2.forEach((item
+        // 处理一下翻译的歌词数组，把空的去掉
+        arr.forEach((item
           , i) => {
-          if (arr[i].lrc) {
-            arr[i].tlyric = arr2[i].lrc
-          } else {
-            arr[i].tlyric = ''
+          if (arr[i].lrc.includes('作词') || arr[i].lrc.includes('作曲') || arr[i].lrc.includes('编曲')) {
+            arr.splice(i, 1)
           }
         })
+        arr2.forEach((item
+          , i) => {
+          if (arr2[i].lrc === '') {
+            arr2.splice(i, 1)
+          }
+        })
+
+        arr.forEach((item
+          , i) => {
+          if (arr2.length > i) {
+            if (arr[i].lrc && !arr[i].lrc.includes('作词') && !arr[i].lrc.includes('作曲') && !arr[i].lrc.includes('编曲')) {
+              arr[i].tlyric = arr2[i].lrc
+              // console.log(arr[i].lrc, arr2[i].lrc)
+            } else {
+              arr[i].tlyric = ''
+            }
+          }
+        })
+        // }
       }
       this.lyric1 = arr
-      // const list = toRaw(this.lyric1)
+      // console.log('最终', this.lyric1)
+
       setTimeout(() => {
         this.addDuration()
-      }, 1000)
+      }, 1200)
     }
   },
   methods: {
@@ -318,16 +332,16 @@ export default {
     },
     // 进度条点击事件
     changeProgressBar: function () {
-      console.log('change')
+      // console.log('change')
     },
     inputProgressBar: function () {
-      console.log('input')
+      // console.log('input')
 
       const length = document.getElementById('range').value
       this.updateCurrentTime(length)
       this.$emit('inputIsChange', true)
 
-      console.log(this.currentTime)
+      // console.log(this.currentTime)
     }
   },
   props: ['musicList', 'isPlaying', 'play', 'addDuration', 'updateTime'],
@@ -338,6 +352,8 @@ export default {
       if (p && p.offsetTop > 300) {
         this.$refs.musicLyric.scrollTop = p.offsetTop - 300
       }
+      console.log(this.duration)
+
       if (newValue >= this.duration) {
         this.changeMusic(1)
         // this.play()
@@ -350,13 +366,85 @@ export default {
         if (this.audioPlaying === false) {
           this.updateIsPlaying()
 
-          this.$toast('应版权方要求,该歌曲无法免费播放')
+          this.$toast('vip歌曲,无法免费播放')
           this.updateAudioPlaying()
           setTimeout(() => {
             this.changeMusic(1)
           }, 500)
         }
       }, 700)
+    },
+    lyricList: function () {
+      if (this.lyricList.lrc.lyric) {
+        const arr = this.lyricList.lrc.lyric.split(/[(\r\n)\r\n]+/).map((item, i) => {
+          // 分
+          const min = item.slice(item.indexOf('[') + 1, item.indexOf(':'))
+          // 秒
+          const sec = item.slice(item.indexOf(':') + 1, item.indexOf('.'))
+          // 毫秒
+          const mill = item.slice(item.indexOf('.') + 1, item.indexOf(']'))
+          // 歌词
+          const lrc = item.slice(item.indexOf(']') + 1, item.length)
+          // 毫秒
+          const time = parseInt(min) * 60 * 1000 + parseInt(sec) * 1000 + parseInt(mill)
+          return { min, sec, mill, lrc, time }
+        })
+        // 获取下一句歌词的时间
+        arr.forEach((item
+          , i) => {
+          // 如果循环到了最后一句，固定为active样式
+          if (i === arr.length - 1 || !arr[i + 1].time) {
+            item.next = 100000
+          } else { item.next = arr[i + 1].time }// 下一首歌的时间
+        })
+        // 处理翻译的歌词
+        if (this.lyricList.tlyric.lyric) {
+          const arr2 = this.lyricList.tlyric.lyric.split(/[(\r\n)\r\n]+/).map((item, i) => {
+            // 分
+            const min = item.slice(item.indexOf('[') + 1, item.indexOf(':'))
+            // 秒
+            const sec = item.slice(item.indexOf(':') + 1, item.indexOf('.'))
+            // 毫秒
+            const mill = item.slice(item.indexOf('.') + 1, item.indexOf(']'))
+            // 歌词
+            const lrc = item.slice(item.indexOf(']') + 1, item.length)
+            // 毫秒
+            const time = parseInt(min) * 60 * 1000 + parseInt(sec) * 1000 + parseInt(mill)
+
+            return { min, sec, mill, lrc, time }
+          })
+
+          // 处理一下翻译的歌词数组，把空的去掉
+          arr.forEach((item
+            , i) => {
+            if (arr[i].lrc.includes('作词') || arr[i].lrc.includes('作曲') || arr[i].lrc.includes('编曲')) {
+              arr.splice(i, 1)
+            }
+          })
+          arr2.forEach((item
+            , i) => {
+            if (arr2[i].lrc === '') {
+              arr2.splice(i, 1)
+            }
+          })
+
+          arr.forEach((item
+            , i) => {
+            if (arr2.length > i) {
+              if (arr[i].lrc && !arr[i].lrc.includes('作词') && !arr[i].lrc.includes('作曲') && !arr[i].lrc.includes('编曲')) {
+                arr[i].tlyric = arr2[i].lrc
+                // console.log(arr[i].lrc, arr2[i].lrc)
+              } else {
+                arr[i].tlyric = ''
+              }
+            }
+          })
+        }
+        this.lyric1 = arr
+        setTimeout(() => {
+          this.addDuration()
+        }, 1200)
+      }
     }
 
   }

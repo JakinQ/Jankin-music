@@ -40,6 +40,7 @@ export default createStore({
     isLogin: false, // 判断是否登录
     isFooterMusic: true, // 判断底部组件是否显示
     audioPlaying: true, // 播放器是否真的播放音乐
+    showTopNav: true, // 在个人界面点击播放器时控制topnav显示
     cookie: 'MUSIC_R_T=1497195337111; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/eapi/feedback; HTTPOnly;MUSIC_A_T=1497195304115; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/weapi/clientlog; HTTPOnly;MUSIC_R_T=1497195337111; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/weapi/clientlog; HTTPOnly;MUSIC_A_T=1497195304115; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/wapi/clientlog; HTTPOnly;MUSIC_R_T=1497195337111; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/neapi/clientlog; HTTPOnly;MUSIC_R_T=1497195337111; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/neapi/feedback; HTTPOnly;MUSIC_R_T=1497195337111; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/eapi/clientlog; HTTPOnly;MUSIC_U=ec17cd46ae20806e489b21b54919d543aeddb5b57cf247416e07dd1ec4956a7a519e07624a9f00536127eba943566844f59aaaa79d646fd9d903412fde637e3dcb70d3bd2ce9bdd6a0d2166338885bd7; Max-Age=15552000; Expires=Sun, 26 Mar 2023 14:44:36 GMT; Path=/; HTTPOnly;MUSIC_R_T=1497195337111; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/openapi/clientlog; HTTPOnly;MUSIC_R_T=1497195337111; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/wapi/clientlog; HTTPOnly;MUSIC_A_T=1497195304115; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/neapi/feedback; HTTPOnly;MUSIC_R_T=1497195337111; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/api/clientlog; HTTPOnly;MUSIC_A_T=1497195304115; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/neapi/clientlog; HTTPOnly;MUSIC_A_T=1497195304115; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/wapi/feedback; HTTPOnly;MUSIC_A_T=1497195304115; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/eapi/clientlog; HTTPOnly;MUSIC_A_T=1497195304115; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/openapi/clientlog; HTTPOnly;MUSIC_R_T=1497195337111; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/api/feedback; HTTPOnly;__csrf=8daf8596af9b01c8982ca4be8d666972; Max-Age=1296010; Expires=Wed, 12 Oct 2022 14:44:46 GMT; Path=/;;MUSIC_R_T=1497195337111; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/weapi/feedback; HTTPOnly;MUSIC_A_T=1497195304115; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/eapi/feedback; HTTPOnly;MUSIC_SNS=; Max-Age=0; Expires=Tue, 27 Sep 2022 14:44:36 GMT; Path=/;MUSIC_R_T=1497195337111; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/wapi/feedback; HTTPOnly;MUSIC_A_T=1497195304115; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/api/clientlog; HTTPOnly;MUSIC_A_T=1497195304115; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/api/feedback; HTTPOnly;MUSIC_A_T=1497195304115; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/weapi/feedback; HTTPOnly',
     // cookie: 'MUSIC_R_T=1486980742819; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/neapi/clientlog; HTTPOnly;MUSIC_A_T=1486980588611; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/openapi/clientlog; HTTPOnly;MUSIC_R_T=1486980742819; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/weapi/clientlog; HTTPOnly;MUSIC_A_T=1486980588611; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/wapi/clientlog; HTTPOnly;MUSIC_R_T=1486980742819; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/weapi/feedback; HTTPOnly;MUSIC_A_T=1486980588611; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/weapi/feedback; HTTPOnly;MUSIC_R_T=1486980742819; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/api/feedback; HTTPOnly;MUSIC_A_T=1486980588611; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/neapi/feedback; HTTPOnly;MUSIC_A_T=1486980588611; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/eapi/clientlog; HTTPOnly;MUSIC_A_T=1486980588611; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/eapi/feedback; HTTPOnly;MUSIC_A_T=1486980588611; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/api/clientlog; HTTPOnly;MUSIC_SNS=; Max-Age=0; Expires=Sun, 18 Sep 2022 14:47:04 GMT; Path=/;MUSIC_R_T=1486980742819; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/wapi/feedback; HTTPOnly;__csrf=19cc7851286c84412a4a70b63f8f5605; Max-Age=1296010; Expires=Mon, 03 Oct 2022 14:47:14 GMT; Path=/;;MUSIC_A_T=1486980588611; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/api/feedback; HTTPOnly;MUSIC_A_T=1486980588611; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/weapi/clientlog; HTTPOnly;MUSIC_R_T=1486980742819; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/wapi/clientlog; HTTPOnly;MUSIC_R_T=1486980742819; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/openapi/clientlog; HTTPOnly;MUSIC_R_T=1486980742819; Max-Age',
     userList: {}
@@ -71,6 +72,7 @@ export default createStore({
     // 更新歌词
     updateLyricList: function (state, value) {
       state.lyricList = value
+      // console.log(value)
     },
     // 更新音乐状态
     updateMusicChange: function (state, value) {
@@ -87,7 +89,6 @@ export default createStore({
     // 搜索到歌曲后插入到播放列表
     pushItemList: function (state, value) {
       state.itemList.push(value)
-      console.log('push后的列表', state.itemList)
     },
     // 更新登录状态
     updateIsLogin: function (state, value) {
@@ -109,12 +110,12 @@ export default createStore({
       const res = await getMusicLyric(value)
       // console.log(res)
       context.commit('updateLyricList', res.data)
-
       // context.commit('updateLyricList', res.data.lrc)
     },
     // 异步请求获取歌词数据
     getLogin: async function (context, value) {
       const res = await getPhoneLogin(value)
+      return res
       // console.log(res)
       // context.commit('updateLyricList', res.data.lrc)
     }
