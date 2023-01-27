@@ -7,6 +7,7 @@ export default createStore({
     // 歌单列表里面的信息
     itemList: [
       {
+
         al: {
           id: 63263,
           name: '残酷な天使のテーゼ / FLY ME TO THE MOON',
@@ -16,16 +17,22 @@ export default createStore({
         },
 
         ar:
-[
-  {
-    id: 17909,
-    name: '高橋洋子',
-    tns: [],
-    alias: []
-  }
-],
+           [
+             {
+               id: 17909,
+               name: '高橋洋子',
+               tns: [],
+               alias: []
+             }
+           ],
         id: 657666,
         name: '残酷な天使のテーゼ'
+      }
+    ],
+    perFmList: [
+      {
+        album: { picUrl: '' },
+        artists: { name: '' }
       }
     ],
     playListIndex: 0, // 默认下标为0
@@ -41,9 +48,14 @@ export default createStore({
     isFooterMusic: true, // 判断底部组件是否显示
     audioPlaying: true, // 播放器是否真的播放音乐
     showTopNav: true, // 在个人界面点击播放器时控制topnav显示
-    cookie: 'MUSIC_R_T=1497195337111; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/eapi/feedback; HTTPOnly;MUSIC_A_T=1497195304115; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/weapi/clientlog; HTTPOnly;MUSIC_R_T=1497195337111; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/weapi/clientlog; HTTPOnly;MUSIC_A_T=1497195304115; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/wapi/clientlog; HTTPOnly;MUSIC_R_T=1497195337111; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/neapi/clientlog; HTTPOnly;MUSIC_R_T=1497195337111; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/neapi/feedback; HTTPOnly;MUSIC_R_T=1497195337111; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/eapi/clientlog; HTTPOnly;MUSIC_U=ec17cd46ae20806e489b21b54919d543aeddb5b57cf247416e07dd1ec4956a7a519e07624a9f00536127eba943566844f59aaaa79d646fd9d903412fde637e3dcb70d3bd2ce9bdd6a0d2166338885bd7; Max-Age=15552000; Expires=Sun, 26 Mar 2023 14:44:36 GMT; Path=/; HTTPOnly;MUSIC_R_T=1497195337111; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/openapi/clientlog; HTTPOnly;MUSIC_R_T=1497195337111; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/wapi/clientlog; HTTPOnly;MUSIC_A_T=1497195304115; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/neapi/feedback; HTTPOnly;MUSIC_R_T=1497195337111; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/api/clientlog; HTTPOnly;MUSIC_A_T=1497195304115; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/neapi/clientlog; HTTPOnly;MUSIC_A_T=1497195304115; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/wapi/feedback; HTTPOnly;MUSIC_A_T=1497195304115; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/eapi/clientlog; HTTPOnly;MUSIC_A_T=1497195304115; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/openapi/clientlog; HTTPOnly;MUSIC_R_T=1497195337111; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/api/feedback; HTTPOnly;__csrf=8daf8596af9b01c8982ca4be8d666972; Max-Age=1296010; Expires=Wed, 12 Oct 2022 14:44:46 GMT; Path=/;;MUSIC_R_T=1497195337111; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/weapi/feedback; HTTPOnly;MUSIC_A_T=1497195304115; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/eapi/feedback; HTTPOnly;MUSIC_SNS=; Max-Age=0; Expires=Tue, 27 Sep 2022 14:44:36 GMT; Path=/;MUSIC_R_T=1497195337111; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/wapi/feedback; HTTPOnly;MUSIC_A_T=1497195304115; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/api/clientlog; HTTPOnly;MUSIC_A_T=1497195304115; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/api/feedback; HTTPOnly;MUSIC_A_T=1497195304115; Max-Age=2147483647; Expires=Sun, 15 Oct 2090 17:58:43 GMT; Path=/weapi/feedback; HTTPOnly',
-    // cookie: 'MUSIC_R_T=1486980742819; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/neapi/clientlog; HTTPOnly;MUSIC_A_T=1486980588611; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/openapi/clientlog; HTTPOnly;MUSIC_R_T=1486980742819; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/weapi/clientlog; HTTPOnly;MUSIC_A_T=1486980588611; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/wapi/clientlog; HTTPOnly;MUSIC_R_T=1486980742819; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/weapi/feedback; HTTPOnly;MUSIC_A_T=1486980588611; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/weapi/feedback; HTTPOnly;MUSIC_R_T=1486980742819; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/api/feedback; HTTPOnly;MUSIC_A_T=1486980588611; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/neapi/feedback; HTTPOnly;MUSIC_A_T=1486980588611; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/eapi/clientlog; HTTPOnly;MUSIC_A_T=1486980588611; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/eapi/feedback; HTTPOnly;MUSIC_A_T=1486980588611; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/api/clientlog; HTTPOnly;MUSIC_SNS=; Max-Age=0; Expires=Sun, 18 Sep 2022 14:47:04 GMT; Path=/;MUSIC_R_T=1486980742819; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/wapi/feedback; HTTPOnly;__csrf=19cc7851286c84412a4a70b63f8f5605; Max-Age=1296010; Expires=Mon, 03 Oct 2022 14:47:14 GMT; Path=/;;MUSIC_A_T=1486980588611; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/api/feedback; HTTPOnly;MUSIC_A_T=1486980588611; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/weapi/clientlog; HTTPOnly;MUSIC_R_T=1486980742819; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/wapi/clientlog; HTTPOnly;MUSIC_R_T=1486980742819; Max-Age=2147483647; Expires=Fri, 06 Oct 2090 18:01:11 GMT; Path=/openapi/clientlog; HTTPOnly;MUSIC_R_T=1486980742819; Max-Age',
-    userList: {}
+    cookie: 'MUSIC_R_T=1497195337111; Max-Age=2147483647; Expires=Fri, 19 Jan 2091 09:54:04 GMT; Path=/api/feedback; HTTPOnly;MUSIC_A_T=1497195304115; Max-Age=2147483647; Expires=Fri, 19 Jan 2091 09:54:04 GMT; Path=/neapi/clientlog; HTTPOnly;MUSIC_A_T=1497195304115; Max-Age=2147483647; Expires=Fri, 19 Jan 2091 09:54:04 GMT; Path=/api/clientlog; HTTPOnly;MUSIC_R_T=1497195337111; Max-Age=2147483647; Expires=Fri, 19 Jan 2091 09:54:04 GMT; Path=/wapi/clientlog; HTTPOnly;__csrf=fc95ced2ca547d1d82ddaf35b14a78f6; Max-Age=1296010; Expires=Mon, 16 Jan 2023 06:40:07 GMT; Path=/;;MUSIC_SNS=; Max-Age=0; Expires=Sun, 01 Jan 2023 06:39:57 GMT; Path=/;MUSIC_R_T=1497195337111; Max-Age=2147483647; Expires=Fri, 19 Jan 2091 09:54:04 GMT; Path=/wapi/feedback; HTTPOnly;MUSIC_R_T=1497195337111; Max-Age=2147483647; Expires=Fri, 19 Jan 2091 09:54:04 GMT; Path=/eapi/clientlog; HTTPOnly;MUSIC_R_T=1497195337111; Max-Age=2147483647; Expires=Fri, 19 Jan 2091 09:54:04 GMT; Path=/weapi/clientlog; HTTPOnly;MUSIC_R_T=1497195337111; Max-Age=2147483647; Expires=Fri, 19 Jan 2091 09:54:04 GMT; Path=/openapi/clientlog; HTTPOnly;MUSIC_A_T=1497195304115; Max-Age=2147483647; Expires=Fri, 19 Jan 2091 09:54:04 GMT; Path=/weapi/clientlog; HTTPOnly;MUSIC_A_T=1497195304115; Max-Age=2147483647; Expires=Fri, 19 Jan 2091 09:54:04 GMT; Path=/wapi/feedback; HTTPOnly;MUSIC_A_T=1497195304115; Max-Age=2147483647; Expires=Fri, 19 Jan 2091 09:54:04 GMT; Path=/wapi/clientlog; HTTPOnly;MUSIC_A_T=1497195304115; Max-Age=2147483647; Expires=Fri, 19 Jan 2091 09:54:04 GMT; Path=/eapi/feedback; HTTPOnly;MUSIC_A_T=1497195304115; Max-Age=2147483647; Expires=Fri, 19 Jan 2091 09:54:04 GMT; Path=/neapi/feedback; HTTPOnly;MUSIC_R_T=1497195337111; Max-Age=2147483647; Expires=Fri, 19 Jan 2091 09:54:04 GMT; Path=/api/clientlog; HTTPOnly;MUSIC_U=33e15c1d7c8e056208bb6c0b3bee001a605ed72e50abe120ccd6416fac4907078a08bd5bf851808fa43c213c0f14c2b16d63a262db2ab275d903412fde637e3dcb70d3bd2ce9bdd6a0d2166338885bd7; Max-Age=15552000; Expires=Fri, 30 Jun 2023 06:39:57 GMT; Path=/; HTTPOnly;MUSIC_R_T=14971953371',
+    userList: {},
+    isQianDao: false,
+    followSinger: false,
+    perFm: false,
+    playMode: '列表循环',
+    inVideoPage: false,
+    movieIsPlaying: false
   },
   getters: {
   },
@@ -59,6 +71,10 @@ export default createStore({
     // 更新歌单信息
     updateItemList: function (state, value) {
       state.itemList = value
+    },
+    // 更新私人fm
+    updatePerFmList: function (state, value) {
+      state.perFmList = value
     },
     // 更新index下标
     updateplayListIndex: function (state, value) {
@@ -92,7 +108,7 @@ export default createStore({
     },
     // 更新登录状态
     updateIsLogin: function (state, value) {
-      state.isLogin = true
+      state.isLogin = value
     },
     // 更新cookie
     updateCookie: function (state, value) {
@@ -102,7 +118,36 @@ export default createStore({
     updateUserList: function (state, value) {
       state.userList = value
       // console.log(state.userList)
+    },
+    // 更新用户列表
+    updateQiandao: function (state, value) {
+      state.isQianDao = true
+      // console.log(state.userList)
+    },
+
+    // 更新播放/暂停状态
+    updateFollowSinger: function (state, value) {
+      state.followSinger = value
+    },
+    // 更新fm状态(是否在fm页面)
+    updatePerFm: function (state, value) {
+      state.perFm = value
+    },
+    // 更新播放模式
+    updatePlayMode: function (state, value) {
+      state.playMode = value
+    },
+    // 更新是否在 视频页面
+    updateInVideoPage: function (state, value) {
+      state.inVideoPage = value
+    },
+    updateIsFooterMusic: function (state, value) {
+      state.isFooterMusic = value
+    },
+    updateMovieIsPlaying: function (state, value) {
+      state.movieIsPlaying = value
     }
+
   },
   actions: {
     // 异步请求获取歌词数据
@@ -112,12 +157,11 @@ export default createStore({
       context.commit('updateLyricList', res.data)
       // context.commit('updateLyricList', res.data.lrc)
     },
-    // 异步请求获取歌词数据
     getLogin: async function (context, value) {
       const res = await getPhoneLogin(value)
+      // console.log(res)
       return res
       // console.log(res)
-      // context.commit('updateLyricList', res.data.lrc)
     }
   },
   modules: {

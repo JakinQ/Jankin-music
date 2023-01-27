@@ -1,13 +1,15 @@
 <template>
   <div>
     <!-- 顶部栏 -->
-    <TopNav></TopNav>
+    <TopNav v-show="!detailShow"></TopNav>
     <!-- 轮播图 -->
     <SwiperTop></SwiperTop>
     <!-- 中间 -->
     <IconList></IconList>
     <!-- 发现好歌单 -->
     <Playlist></Playlist>
+    <!-- 私人推荐 -->
+    <PersonalList></PersonalList>
   </div>
 </template>
 
@@ -17,6 +19,8 @@ import TopNav from '@/components/home/TopNav.vue'
 import SwiperTop from '@/components/home/SwpierTop.vue'
 import IconList from '@/components/home/iconList.vue'
 import Playlist from '@/components/home/Playlist.vue'
+import PersonalList from '@/components/home/personalList.vue'
+import { mapMutations, mapState } from 'vuex'
 
 export default {
   name: 'HomeView',
@@ -24,7 +28,20 @@ export default {
     TopNav,
     SwiperTop,
     IconList,
-    Playlist
+    Playlist,
+    PersonalList
+  },
+  computed: {
+    ...mapState(['detailShow', 'isPlaying'])
+  },
+  created () {
+    // 默认最顶端
+    // window.location.href = '#top'
+    // console.log('fm', this.perFm)
+  },
+  watch: {
+
   }
+
 }
 </script>

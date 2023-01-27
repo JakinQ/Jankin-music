@@ -2,7 +2,14 @@
   <div class="FooterMusic">
     <!-- 左边布局 -->
     <div class="FooterLeft" @click="updatedetailShow">
-      <img :src="itemList[playListIndex].al.picUrl" alt="" />
+      <img
+        :src="
+          perFm
+            ? perFmList[playListIndex].album.picUrl
+            : itemList[playListIndex].al.picUrl
+        "
+        alt=""
+      />
       <div>
         <!-- 滚动标签 -->
         <p>
@@ -12,7 +19,11 @@
             vspace="10"
             scrollamount="5"
           >
-            {{ itemList[playListIndex].name }}</Marquee
+            {{
+              perFm
+                ? perFmList[playListIndex].name
+                : itemList[playListIndex].name
+            }}</Marquee
           >
         </p>
 
@@ -33,12 +44,18 @@
         </svg>
       </div>
     </div>
-    <!-- audio播放器 -->
+    <!-- audio播放器  perfm：当在perfm界面时为true，则播放的也是perFmList的歌 -->
+    <!-- itemList.length <= 1 || !perFm ? 'true' : loop -->
     <audio
+      :loop="changLoop()"
       ref="audio"
+      @change="onChange"
+      @pause="onPause"
       @play="onPlay"
       @error="onError"
-      :src="`https://music.163.com/song/media/outer/url?id=${itemList[playListIndex].id}.mp3`"
+      :src="`https://music.163.com/song/media/outer/url?id=${
+        perFm ? perFmList[playListIndex].id : itemList[playListIndex].id
+      }.mp3`"
     ></audio>
 
     <!-- 弹出层 -->
@@ -46,6 +63,7 @@
       v-model:show="detailShow"
       position="bottom"
       :style="{ height: '100%', width: '100%' }"
+      duration="0.1"
     >
       <!-- @func  子传父 -->
       <!-- 歌曲播放页面 -->
@@ -56,7 +74,18 @@
         :addDuration="addDuration"
         :updateTime="updateTime"
         @inputIsChange="inputIsChange"
+        v-if="!perFm"
       ></MusicDetail>
+      <!-- <TopNav v-else></TopNav> -->
+      <PerFm
+        v-else
+        :musicList="perFmList[playListIndex]"
+        :play="play"
+        :isPlaying="isPlaying"
+        :addDuration="addDuration"
+        :updateTime="updateTime"
+        @inputIsChange="inputIsChange"
+      ></PerFm>
     </van-popup>
   </div>
 </template>
@@ -65,27 +94,35 @@
 
 import { mapMutations, mapState } from 'vuex'
 import MusicDetail from '@/components/item/MusicDetail.vue'
+import PerFm from '@/components/home/perFm/perFm.vue'
+import { getPreFm } from '@/request/api/home.js'
+
+// import TopNav from '@/components/home/TopNav.vue'
+
 // import { Vue3Marquee } from 'vue3-marquee'
 // import 'vue3-marquee/dist/style.css'
 export default {
   data () {
     return {
       // 当前歌词时间轴
-      interVal: 0
+      interVal: 0,
+      loop: false
     }
   },
   components: {
-    MusicDetail
+    MusicDetail, PerFm
   },
   computed: {
     // 解构
-    ...mapState(['itemList', 'playListIndex', 'isPlaying', 'detailShow', 'musicChange', 'audioPlaying', 'lyricList', 'currentTime'])
+    ...mapState(['itemList', 'playListIndex', 'isPlaying', 'detailShow', 'musicChange', 'audioPlaying', 'lyricList', 'currentTime', 'perFm', 'perFmList', 'playMode', 'inVideoPage', 'movieIsPlaying'])
 
   },
   // 所有数据变化都会触发
   updated () {
     // itemlist改变传id给vuex获取歌词
-    this.$store.dispatch('getLyric', this.itemList[this.playListIndex].id)
+    if (this.perFm) {
+      this.$store.dispatch('getLyric', this.perFmList[this.playListIndex].id)
+    } else { this.$store.dispatch('getLyric', this.itemList[this.playListIndex].id) }
     // alert(1)
     // console.log(this.lyricList)
     // 切换歌曲时候，要延时才能获取duration
@@ -96,14 +133,26 @@ export default {
     // this.addDuration()
   },
 
-  mounted () {
+  async mounted () {
     // console.log(this.$refs)
     this.$store.dispatch('getLyric', this.itemList[this.playListIndex].id)
     this.updateTime()
+
+    const nowtime = Date.now()
+    const res = await getPreFm(nowtime)
+    this.updatePerFmList(res.data.data)
     // debugger
+    // const timestamp = Date.now()
+    // const res = await getPreFm(timestamp)
+    // this.perFmList = res.data.data
   },
   methods: {
-
+    changLoop () {
+      // itemList.length <= 1 || !perFm ? 'true' : loop
+      if (!this.perFm) {
+        if (this.itemList.length <= 1) return 'true'
+      } else return this.loop
+    },
     // 播放时触发定时器
     updateTime: function () {
       this.interVal = setInterval(() => {
@@ -140,14 +189,19 @@ export default {
       }
       val = false
     },
-    ...mapMutations(['updateIsPlaying', 'updatedetailShow', 'updateMusicChange', 'updateCurrentTime', 'updateDuration', 'updateAudioPlaying']),
+    ...mapMutations(['updateIsPlaying', 'updatedetailShow', 'updateMusicChange', 'updateCurrentTime', 'updateDuration', 'updateAudioPlaying', 'updatePlayMode', 'updatePerFmList']),
 
     // 当音频播放
     onPlay: function () {
       // console.log('开始播放声音')
       // console.log('是否暂停', this.$refs.audio.paused)
     },
-
+    onPause () {
+      // console.log('播放暂停')
+    },
+    onChange () {
+      // console.log('音频改变')
+    },
     onError () {
       // console.log('播放出错')
       this.updateAudioPlaying()
@@ -163,7 +217,11 @@ export default {
 
   // 数据改变时触发
   watch: {
-
+    playMode: function () {
+      if (this.playMode === '单曲循环') {
+        this.loop = true
+      } else this.loop = false
+    },
     playListIndex: function () {
       // 播放音乐
       this.$refs.audio.autoplay = true
@@ -185,6 +243,7 @@ export default {
     },
     //
     itemList: function () {
+      // console.log('itemList change')
       // 如果没有播放
       if (!this.isPlaying) {
         this.$refs.audio.autoplay = true
@@ -208,8 +267,39 @@ export default {
       // 触发状态改变musicChange也改变
       this.updateMusicChange(true)
       // debugger
-    }
+    },
+    perFmList: function () {
+      // console.log('perFmList change')
+    },
 
+    perFm: function () {
+      // if (this.perFm === true) { this.updatePlayMode('列表循环') }
+      // console.log('perfm', this.perFm)
+    },
+
+    isPlaying: function () {
+      // console.log('isPlaying change')
+      // console.log('111', this.$route.path)
+      //  this.$refs.audio.
+    },
+    inVideoPage: function () {
+      // console.log('inVideoPage', this.inVideoPage)
+      // if (this.inVideoPage === true) {
+      //   this.updateIsPlaying(false)
+      //   this.$refs.audio.pause()
+      // }
+    },
+    detailShow: function () {
+      // console.log('detailShow', this.detailShow)
+    },
+    movieIsPlaying: function () {
+      if (this.movieIsPlaying === true) {
+        if (!this.$refs.audio.paused) {
+          this.$refs.audio.pause()
+          this.updateIsPlaying()
+        }
+      }
+    }
   }
 
 }
@@ -265,7 +355,7 @@ export default {
     height: 100%;
     display: flex;
     position: absolute;
-    transform: translateX(330px);
+    transform: translateX(5.77rem);
     // align-items: center;
 
     // justify-content: space-between;

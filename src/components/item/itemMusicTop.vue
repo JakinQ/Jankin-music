@@ -53,7 +53,7 @@
   </div>
   <div class="itemTopFooter">
     <div class="footerItem">
-      <svg class="icon" aria-hidden="true">
+      <svg class="icon" aria-hidden="true" @click="intoComment">
         <use xlink:href="#icon-iconfontzhizuobiaozhun023110"></use>
       </svg>
       <span>{{ changeCount(playlist.commentCount) }}</span>
@@ -89,6 +89,7 @@ export default {
     //   props.playlist.creator = sessionStorage.getItem()
     // }
     // 对播放量的处理
+
     function changeCount (num) {
       if (num >= 100000000) {
         return (num / 100000000).toFixed(0) + '亿'
@@ -101,7 +102,11 @@ export default {
   },
   props: ['playlist'],
   methods: {
-
+    intoComment () {
+      // console.log(this.playlist)
+      // $router.push({ path: '/comment', query: { id: this.musicList.id } })
+      this.$router.push({ path: '/comment', query: { id: this.playlist.id, isList: true } })
+    }
   }
 
 }
@@ -154,7 +159,7 @@ export default {
     z-index: -1;
 
     //图片虚化  30px
-    filter: blur(35px);
+    filter: blur(0.6125rem);
   }
 }
 .itemTopContent {
@@ -210,10 +215,10 @@ export default {
 
     //歌单名字
     .rightP_one {
-      font-size: 0.32rem;
+      font-size: 0.34rem;
       font-weight: 570;
       color: rgb(254, 254, 254);
-      font-family: "黑体";
+      // font-family: "黑体";
     }
     .right_img {
       width: 100%;

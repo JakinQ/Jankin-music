@@ -15,8 +15,8 @@
       <!-- 查看歌手 -->
       <div
         class="icon iconfont i icon-geshou"
-        @click="allSinger"
         v-if="!isFalseShow"
+        @click="this.$router.push('/singer')"
       ></div>
       <!-- 叉号 -->
       <svg
@@ -136,6 +136,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['updatePerFm']),
     // 搜索歌曲事件
     enterKey: async function () {
       // 如果没输入就回车，则搜索默认值
@@ -184,9 +185,7 @@ export default {
       }
       //   console.log(res)
     },
-    allSinger () {
-      // console.log('查看所有歌手')
-    },
+
     // 删除历史记录
     deleteHistory: function () {
       localStorage.removeItem('keyWordList')
@@ -201,6 +200,8 @@ export default {
     },
     // 点击搜索到的歌曲,加入列表
     updateIndex: function (item, i) {
+      this.updatePerFm(false)
+
       // 检测是否是vip
       const check = checkMusicFree(this.searchList[i].fee)
       if (!check) {
@@ -246,7 +247,7 @@ export default {
     color: rgb(176, 176, 176);
     margin: left 0.2rem;
     border: none;
-    border-bottom: 1px solid rgb(132, 132, 132);
+    border-bottom: 0.0175rem solid rgb(132, 132, 132);
     width: 76.4%;
     padding-left: 0.1rem;
     padding-bottom: 0.215rem;
@@ -256,7 +257,7 @@ export default {
   }
   .i {
     position: fixed;
-    font-size: 0.422rem;
+    font-size: 0.482rem;
     margin: 0 0.343rem 0 0rem;
     right: 0;
     color: black;

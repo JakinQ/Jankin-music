@@ -4,7 +4,7 @@
     <itemMusicTop :playlist="state.playlist" />
     <!-- 歌曲列表 -->
     <ItemMusicList
-      :itemList="state.itemList"
+      :itemList2="state.itemList"
       :subscribedCount="state.playlist.subscribedCount"
     />
   </div>
@@ -32,13 +32,14 @@ export default {
       const res = await getItemMusicList(id)
       // console.log('歌单列表', res)
       state.playlist = res.data.playlist
+      // console.log(state.playlist)
       // 获取歌单歌曲
       const result = await getItemList({ id, limit: 70, offset: 0 })
-      // console.log('歌曲列表', state.playlist)
+      // console.log('playlist', state.playlist)
       // state.itemList = result.data.songs
 
       state.itemList = result.data.songs
-      // console.log('歌曲列表', state.itemList)
+      // console.log('itemList', state.itemList)
 
       //   console.log(state.itemList[0].al)
       // 防止页面刷新，数据丢失，将数据保存到sessionstore

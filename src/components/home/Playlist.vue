@@ -2,16 +2,17 @@
   <div class="musicList">
     <div class="musicTop">
       <div class="title">发现好歌单</div>
-      <div class="more">歌单广场</div>
+      <div class="more" @click="this.$router.push('/morePlayList')">
+        歌单广场
+      </div>
     </div>
     <div class="musicContent">
-      <van-swipe
-        :loop="false"
-        :width="150"
-        class="mySwiper"
-        :show-indicators="false"
-      >
-        <van-swipe-item v-for="item in state.musicList" :key="item">
+      <van-swipe :loop="false" class="mySwiper" :show-indicators="false">
+        <van-swipe-item
+          v-for="item in state.musicList"
+          :key="item"
+          style="width: 2.625rem"
+        >
           <!-- 私人fm -->
 
           <!-- 推荐歌单 -->
@@ -20,9 +21,7 @@
 
             <img :src="item.picUrl" alt="" />
             <span class="playCount">
-              <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-24gl-play "></use>
-              </svg>
+              <i class="bi bi-play-fill icon"></i>
               {{ changeCount(item.playCount) }}
             </span>
             <!-- 歌单描述 -->
@@ -113,7 +112,7 @@ export default {
 .musicList {
   width: 100%;
   height: 5rem;
-  padding: 0.2rem;
+  padding: 0.2rem 0.2rem 0 0.2rem;
 
   .musicTop {
     width: 100%;
@@ -126,7 +125,7 @@ export default {
       font-weight: 900;
     }
     .more {
-      border: 1px solid #ccc;
+      border: 0.0175rem solid #ccc;
       text-align: center;
       line-height: 0.6rem;
       padding: 0 0.2rem;
@@ -137,7 +136,7 @@ export default {
 
 .musicContent {
   width: 100%;
-  height: 3.6rem;
+  height: 3.8rem;
   .van-swipe-item {
     //   margin-right: 0.14rem;
     padding-right: 0.2rem;
@@ -145,7 +144,7 @@ export default {
     height: 3.8rem;
     img {
       width: 100%;
-      height: 2.4rem;
+      height: 2.422rem;
       border-radius: 0.2rem;
       //   position: absolute;
     }
@@ -156,13 +155,12 @@ export default {
       color: white;
       margin-top: 0.06rem;
       .icon {
-        width: 0.3rem;
-        height: 0.3rem;
+        font-size: 0.4rem;
       }
     }
     .name {
       //   position: absolute;
-      bottom: 0px;
+      bottom: 0rem;
     }
   }
 }

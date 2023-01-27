@@ -9,7 +9,7 @@
         </svg>
         <div class="bofang">
           <span
-            >播放全部<span> (共{{ itemList.length }}首)</span></span
+            >播放全部<span> (共{{ itemList2.length }}首)</span></span
           >
         </div>
       </div>
@@ -22,12 +22,10 @@
           >收藏<span>({{ changeCount2(subscribedCount) }})</span></span
         >
       </div>
-
-      <!-- 弹出层   当左边的按钮触发时打开弹出层-->
     </div>
     <!-- 歌曲列表渲染 -->
     <div class="itemList">
-      <div class="item" v-for="(item, i) in itemList" :key="i">
+      <div class="item" v-for="(item, i) in itemList2" :key="i">
         <!-- 序号和歌名 -->
         <!-- 播放时不显示序号显示喇叭图标 -->
         <div class="left" @click="playMusic(i)">
@@ -41,8 +39,9 @@
             p-id="1417"
             width="200"
             height="200"
-            v-if="this.itemList[i].id == itemList.id && i == playListIndex"
+            v-if="showHorn(i, itemList2)"
           >
+            <!-- {{ this.itemList.length }} -->
             <path
               d="M448 282.4v459.2L301.6 594.4 282.4 576H192V448h90.4l18.4-18.4L448 282.4M512 128L256 384H128v256h128l256 256V128z m64 5.6v64.8c145.6 29.6 256 159.2 256 313.6s-110.4 284-256 313.6v64.8c181.6-30.4 320-188 320-378.4S757.6 164 576 133.6z m0 188.8v65.6c55.2 14.4 96 64 96 124s-40.8 109.6-96 124v65.6C666.4 686.4 736 607.2 736 512s-69.6-174.4-160-189.6z"
               p-id="1418"
@@ -109,14 +108,16 @@ export default {
     }
     return { changeCount, changeCount2 }
   },
-  props: ['itemList', 'subscribedCount'],
+  props: ['itemList2', 'subscribedCount'],
   computed: {
-    ...mapState(['isPlaying', 'playListIndex', 'itemList', 'detailShow', 'musicChange', 'audioPlaying'])
+    ...mapState(['isPlaying', 'playListIndex', 'detailShow', 'musicChange', 'audioPlaying', 'itemList'])
 
   },
+
   methods: {
     // 点击播放选中歌单中的音乐，传下标判断点击的是哪个歌曲
     async playMusic (i) {
+      this.updatePerFm(false)
       // this.updateIsPlaying()
       // this.id = this.itemList[i].id
       // console.log(this.itemList[i].id)
@@ -127,7 +128,7 @@ export default {
       // 检测歌曲版权和vip
       // const res = await getMusicDetail(this.itemList[i].id)
       // 检测是否是vip
-      const check = checkMusicFree(this.itemList[i].fee)
+      const check = checkMusicFree(this.itemList2[i].fee)
       if (!check) {
         return this.$toast({
           message: 'vip歌曲,无法免费播放',
@@ -135,14 +136,8 @@ export default {
           duration: 1000
         })
       }
-      // const res = await musicCopyright(this.itemList[i].id)
-      // console.log('版权', res.data)
-      // if (res.data.success !== true) {
 
-      // const res = await getMusicDetail(this.itemList[i].id)
-      // console.log('详细', res)
-
-      this.updateItemList(this.itemList)
+      this.updateItemList(this.itemList2)
       // console.log(this.musicChange)
       this.updateplayListIndex(i)
 
@@ -171,6 +166,17 @@ export default {
       // 恢复状态
       this.updateMusicChange(false)
     },
+    // 判断是否显示喇叭
+    showHorn (i, item) {
+      // this.itemList2[i].id == item.id &&
+      //   i == playListIndex &&
+      //   this.isPlaying
+      if (this.itemList.length === item.length) {
+        if (this.itemList[i].id === item[i].id &&
+          i === this.playListIndex &&
+          this.isPlaying) { return true } else return false
+      } else return false
+    },
     changeMusic: function (num) {
       let index = this.playListIndex + num
       // console.log('触发了上一首/下一首')
@@ -181,7 +187,7 @@ export default {
       }
       this.updateplayListIndex(index)
     },
-    ...mapMutations(['updateItemList', 'updateplayListIndex', 'updateIsPlaying', 'updatedetailShow', 'updateMusicChange', 'updateAudioPlaying'])
+    ...mapMutations(['updateItemList', 'updateplayListIndex', 'updateIsPlaying', 'updatedetailShow', 'updateMusicChange', 'updateAudioPlaying', 'updatePerFm'])
 
   }
 
@@ -191,7 +197,7 @@ export default {
 <style lang="less" scoped>
 .itemMusicList {
   width: 100%;
-  height: 10rem;
+  height: 1.5rem;
   background-color: #fff;
   padding: 0 0.2rem;
   margin-top: 0.2rem;
@@ -206,6 +212,8 @@ export default {
     justify-content: space-between;
     align-items: center;
     padding-top: 0.15rem;
+    padding-bottom: 0.15rem;
+
     .left {
       width: 3rem;
       height: 100%;

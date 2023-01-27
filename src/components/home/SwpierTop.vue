@@ -37,9 +37,9 @@ export default {
 
 <style lang="less" scoped>
 #swiperTop {
+  margin-top: 1rem;
   .van-swipe {
     width: 100%;
-    padding: 0.2rem;
     .van-swipe__track {
       .van-swipe-item {
         img {

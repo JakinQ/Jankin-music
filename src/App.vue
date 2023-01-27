@@ -2,14 +2,16 @@
   <router-view />
   <!-- <TopNav></TopNav> -->
   <!-- 底部播放栏全局组件 -->
-  <FooterMusic v-show="$store.state.isFooterMusic"></FooterMusic>
-  <!-- <FooterMusic v-show="$store.state.isFooterMusic"/> -->
+  <FooterMusic id="foot" v-show="$store.state.isFooterMusic"></FooterMusic>
 </template>
 
 <script>
 import FooterMusic from '@/components/item/FooterMusic.vue'
 export default {
-  components: { FooterMusic }
+  components: { FooterMusic },
+  created () {
+    // console.log(this.$route.path)
+  }
 }
 </script>
 

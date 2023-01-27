@@ -255,8 +255,6 @@
 import { mapState } from 'vuex'
 import { ref } from 'vue'
 import {
-  loginStatus,
-  getUser,
   getUserMore,
   getUserSongList
 } from '@/request/api/home'
@@ -335,7 +333,6 @@ export default {
   //   width: 100%;
   .userTop {
     // position: fixed;
-    // transform: translateY(60px);
     // margin-top: 0.97rem;
     width: 100%;
     height: 4.46rem;
@@ -375,9 +372,6 @@ export default {
   }
   .van-cell__title {
     // position: fixed;
-
-    // transform: translateY(60px);
-
     // display: flex;
     div {
       font-size: 0.34rem;
@@ -389,7 +383,7 @@ export default {
     font-weight: 750;
     font-size: 0.318rem;
     top: 0.08rem;
-    right: 18px;
+    right: 0.315rem;
   }
   .svg {
     position: relative;

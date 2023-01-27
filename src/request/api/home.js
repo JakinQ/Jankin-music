@@ -17,10 +17,10 @@ export function getMusicList () {
   })
 }
 // 私人歌单
-export function getPreFm () {
+export function getPreMusic () {
   return service({
     method: 'GET',
-    url: '/personal_fm'
+    url: '/recommend/resource'
   })
 }
 
@@ -78,6 +78,14 @@ export function loginStatus () {
     url: '/login/status'
   })
 }
+// 登录状态
+export function logOut () {
+  return service({
+    method: 'get',
+    url: '/logout'
+  })
+}
+
 // 获取用户信息
 export function getUser1 (cookie, time) {
   return service({
@@ -113,18 +121,39 @@ export function getUserSongList (uid) {
   })
 }
 
-// 获取歌曲详情
-// /song/detail?ids=347230,/song/detail?ids=347230,347231
-// export function getMusicDetail (id) {
-//   return service({
-//     url: '/song/detail?ids=' + id
-//   })
-// }
 // 检测歌曲是否是vip歌曲
 export function checkMusicFree (feeId) {
-  console.log('feeId', feeId)
   if (!feeId) {
     return true
   } else if (feeId === 8) return true
   else return false
+}
+
+// 获取日推歌曲
+export function getRecommendedDailySongs () {
+  return service({
+    url: '/recommend/songs'
+  })
+}
+// 私人FM
+export function getPreFm (timestamp) {
+  return service({
+    method: 'GET',
+    url: `/personal_fm?time=${timestamp}`
+  })
+}
+// 把私人fm音乐放进垃圾堆
+export function fmTrash (id) {
+  return service({
+    method: 'GET',
+    url: `/fm_trash?id=${id}`
+  })
+}
+// 歌手详情
+export function getSingerDetail (id) {
+  return service({
+    method: 'get',
+    url: `/artist/detail?id=${id}`
+
+  })
 }

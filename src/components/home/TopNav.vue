@@ -21,8 +21,6 @@
 
       <!-- 搜索栏 -->
       <div class="topRight">
-        <!-- <Share style="width: 1em; height: 1em; margin-right: 8px" /> -->
-
         <svg class="icon" aria-hidden="true" @click="$router.push('/search')">
           <use xlink:href="#icon-sousuo"></use>
         </svg>
@@ -49,7 +47,16 @@
           <img :src="userList.profile.avatarUrl" alt="" class="profileimg" />
           <p class="name">
             {{ userList.profile.nickname }}
-            <button class="btn" @click="signIn">签到</button>
+            丨Lv.{{ level }}
+            <button
+              class="btn"
+              @click="signIn"
+              v-if="!(userList.pcSign || userList.mobileSign)"
+              :disabled="isDisable"
+            >
+              签到
+            </button>
+            <button class="btn" style="color: #cbccc7" v-else>已签到</button>
           </p>
         </div>
         <div v-else class="notLogin">
@@ -59,31 +66,51 @@
       </div>
       <div class="popup-mid">
         <div class="icon">
-          <p>
-            <i class="bi bi-people-fill"></i>
+          <p @click="myFriend">
+            <i class="bi bi-people"></i>
             <span>我的好友</span>
           </p>
 
-          <p>
+          <p @click="me">
             <i class="bi bi-house-door"></i>
             <span>个人主页</span>
           </p>
         </div>
         <div class="icon2">
-          <p><i class="bi bi-people-fill"></i> <span>我的好友</span></p>
-          <p><i class="bi bi-people-fill"></i> <span>我的好友</span></p>
-          <p><i class="bi bi-people-fill"></i> <span>我的好友</span></p>
+          <p @click="myConcernList()">
+            <i class="bi bi-people-fill"></i> <span>我的关注</span>
+          </p>
+          <p><i class="bi bi-envelope"></i> <span>我的消息</span></p>
+          <p>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-fire"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8 16c3.314 0 6-2 6-5.5 0-1.5-.5-4-2.5-6 .25 1.5-1.25 2-1.25 2C11 4 9 .5 6 0c.357 2 .5 4-2 6-1.25 1-2 2.729-2 4.5C2 14 4.686 16 8 16Zm0-1c-1.657 0-3-1-3-2.75 0-.75.25-2 1.25-3C6.125 10 7 10.5 7 10.5c-.375-1.25.5-3.25 2-3.5-.179 1-.25 2 1 3 .625.5 1 1.364 1 2.25C11 14 9.657 15 8 15Z"
+              />
+            </svg>
+            <span @click="this.$router.push('/list')"> 排行榜</span>
+          </p>
         </div>
       </div>
       <div class="space"></div>
-      <div class="popup-bottom">1</div>
+      <div class="popup-bottom">
+        <button @click="loginOut">退出登录</button>
+      </div>
     </van-popup>
   </div>
 </template>
 
 <script>
 import { ref } from 'vue'
-import { mapState } from 'vuex'
+import { yunbei, getLevel } from '@/request/api/item'
+import { getUser, logOut } from '@/request/api/home'
+import { mapMutations, mapState } from 'vuex'
 
 export default {
   data () {
@@ -94,28 +121,56 @@ export default {
         }
       },
       foundActive: true,
-      show: ref(false)
+      show: ref(false),
+      level: 0,
+      isDisable: false
     }
   },
-  created () {
-
+  async created () {
+    // const level = await getLevel()
+    // this.level = level.data.data.level
+    this.level = this.userList.level
   },
   computed: {
-    ...mapState(['userList'])
+    ...mapState(['userList', 'isQianDao', 'isLogin'])
 
   },
-  mounted () {
+  async mounted () {
     if (this.$route.path === '/infoUser') {
       this.foundActive = false
     }
+    // console.log(this.userList)
+    // const res = await getYunbeiStatus()
+    // const res2 = await getYunbeiStatus2()
 
-    // this.userlist1 = this.userlist.profile
-    console.log(this.userList)
+    // console.log('res', res)
+    // console.log('2', res2)
+    // const res = await getUser(505673461)
+    // console.log(res)
+    // console.log(this.userList)
   },
 
   methods: {
+    ...mapMutations([
+      'updateQiandao', 'updateIsLogin'
+    ]),
     login: function () {
       this.$router.push('/infoUser')
+    },
+    loginOut: async function () {
+      if (this.userList.profile) {
+        this.updateIsLogin(false)
+        this.$router.push('/login')
+      } else {
+        this.$toast({
+          message: '未登录',
+          position: 'bottom',
+          duration: 1000
+        })
+      }
+      // const res = await logOut()
+
+      // console.log(this.isLogin)
     },
     showPopup: function () {
       this.show = true
@@ -124,11 +179,42 @@ export default {
       this.foundActive = false
       this.$router.push('/infoUser')
     },
+    myFriend: function () {
+      this.$router.push('/concernList')
+    },
     found: function () {
       this.$router.push('/')
     },
-    signIn: function () {
-      alert('签到成功')
+    myConcernList: function () {
+      if (this.userList.profile) { this.$router.push('/concernList') } else {
+        this.$toast({
+          message: '请登录再进入',
+          position: 'bottom',
+          duration: 1000
+        })
+      }
+    },
+    myMessage: function () {
+      if (this.userList.profile) { this.$router.push('/concernList') } else {
+        this.$toast({
+          message: '请登录再进入',
+          position: 'bottom',
+          duration: 1000
+        })
+      }
+    },
+    signIn: async function () {
+      this.isDisable = true
+      const yunbei1 = await yunbei()
+
+      if (yunbei1.data.code === 200) {
+        this.$toast({
+          message: '签到成功',
+          position: 'bottom',
+          duration: 1000
+        })
+        this.updateQiandao()
+      }
     }
   }
 
@@ -140,7 +226,11 @@ export default {
 
 .topNav {
   width: 100%;
+  z-index: 2;
   padding: 0.2rem;
+  background-color: white;
+  top: 0;
+  position: fixed;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -186,12 +276,22 @@ export default {
       font-size: 0.34rem;
       font-weight: 700;
     }
+
     .btn {
+      position: fixed;
+      margin: 0 auto;
+      right: 0.4rem;
+      /* 清除默认边框 */
       border: none;
-      margin-left: 52%;
-      height: 17.6%;
+      border: #cbccc7 solid 0.0175rem;
+      // opacity: 0.4;
+      /*清除默认背景 */
+      background-color: transparent;
+      // margin-left: 32%;
+      // height: 17.6%;
+      height: 0.5rem;
       width: 17.3%;
-      border-radius: 25%;
+      border-radius: 0.4rem;
       font-size: 0.3rem;
       font-weight: 400 !important;
     }
@@ -225,7 +325,7 @@ export default {
   .popup-mid {
     height: 27%;
     background-color: white;
-    border-top: #ebebeb solid 1px;
+    border-top: #ebebeb solid 0.0175rem;
 
     .icon {
       width: 92%;
@@ -254,6 +354,12 @@ export default {
   .icon2 {
     display: flex;
     flex-direction: column;
+    margin: 0rem 0.3rem 0.3rem 0.3rem;
+    p {
+      margin-top: 0.23rem;
+      margin-bottom: 0.23rem;
+      font-size: 0.298rem;
+    }
   }
   .space {
     width: 100%;
@@ -266,6 +372,17 @@ export default {
     width: 100%;
     height: 6.2%;
     background-color: white;
+    button {
+      transform: translateX(70%);
+      border-radius: 0.8rem;
+      background: red;
+      color: white;
+      border: none;
+      opacity: 0.6;
+      height: 0.6rem;
+      width: 2.412rem;
+      font-size: 0.31rem;
+    }
   }
 }
 </style>

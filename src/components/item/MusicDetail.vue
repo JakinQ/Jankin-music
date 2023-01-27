@@ -47,7 +47,7 @@
       <!-- 添加点击事件  点击后出现歌词-->
 
       <img
-        @click="this.isLyricShow = !this.isLyricShow"
+        @click="watchLyric()"
         :src="musicList.al.picUrl"
         class="img_ar"
         alt=""
@@ -62,7 +62,7 @@
       @click="this.isLyricShow = false"
     >
       <!-- 当前时间轴currentTime大于歌词自身的时间,且小宇下一句歌词的时间时高亮显示歌词 -->
-      <br />
+      <br ref="br" />
       <br />
       <br />
       <br />
@@ -92,18 +92,31 @@
       <!-- <div v-show="isLyricShow"> -->
       <div>
         <div class="footerTop" v-show="!isLyricShow">
-          <svg class="icon" aria-hidden="true">
+          <!-- <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-aixin"></use>
-          </svg>
+          </svg> -->
+          <i
+            v-if="!isLike"
+            class="bi bi-heart"
+            style="font-size: 0.6rem; color: white"
+            @click="likeOrDislike(true)"
+          ></i>
+          <i
+            v-else
+            class="bi bi-heart-fill"
+            style="font-size: 0.6rem; color: red"
+            @click="likeOrDislike(false)"
+          ></i>
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-iconfontzhizuobiaozhun023146"></use>
           </svg>
-          <svg class="icon" aria-hidden="true">
+          <!-- <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-yinlechangpian"></use>
-          </svg>
-          <svg class="icon" aria-hidden="true">
+          </svg> -->
+          <van-icon name="chat-o" @click="intoComment" :badge="count" />
+          <!-- <svg class="icon" aria-hidden="true" @click="intoComment">
             <use xlink:href="#icon-iconfontzhizuobiaozhun023110"></use>
-          </svg>
+          </svg> -->
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-liebiao-"></use>
           </svg>
@@ -111,23 +124,68 @@
       </div>
       <div class="footerContent"></div>
       <!-- 进度条 -->
-      <input
-        id="range"
-        type="range"
-        class="range"
-        ref="ProgressBar"
-        min="0"
-        :max="duration"
-        v-model="currentTime"
-        step="0.05"
-        @change="changeProgressBar()"
-        @input="inputProgressBar()"
-      />
+      <div class="input">
+        <span class="left">{{ formatSeconds(this.currentTime) }}</span>
+        <input
+          id="range"
+          type="range"
+          class="range"
+          ref="ProgressBar"
+          min="0"
+          :max="duration"
+          v-model="currentTime"
+          step="0.05"
+          @change="changeProgressBar()"
+          @input="inputProgressBar()"
+        />
+        <span class="right">{{ formatSeconds(this.duration) }}</span>
+      </div>
+
       <!-- 下 -->
       <div class="footer">
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-xunhuan"></use>
+        <!-- 顺序循环 -->
+        <svg
+          @click="changePlayMode('单曲循环')"
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-repeat icon"
+          viewBox="0 0 16 16"
+          v-if="playMode === '列表循环'"
+        >
+          <path
+            d="M11 5.466V4H5a4 4 0 0 0-3.584 5.777.5.5 0 1 1-.896.446A5 5 0 0 1 5 3h6V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192Zm3.81.086a.5.5 0 0 1 .67.225A5 5 0 0 1 11 13H5v1.466a.25.25 0 0 1-.41.192l-2.36-1.966a.25.25 0 0 1 0-.384l2.36-1.966a.25.25 0 0 1 .41.192V12h6a4 4 0 0 0 3.585-5.777.5.5 0 0 1 .225-.67Z"
+          />
         </svg>
+        <!-- 单曲循环 -->
+        <svg
+          @click="changePlayMode('随机播放')"
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-repeat-1 icon"
+          viewBox="0 0 16 16"
+          v-if="playMode === '单曲循环'"
+        >
+          <path
+            d="M11 4v1.466a.25.25 0 0 0 .41.192l2.36-1.966a.25.25 0 0 0 0-.384l-2.36-1.966a.25.25 0 0 0-.41.192V3H5a5 5 0 0 0-4.48 7.223.5.5 0 0 0 .896-.446A4 4 0 0 1 5 4h6Zm4.48 1.777a.5.5 0 0 0-.896.446A4 4 0 0 1 11 12H5.001v-1.466a.25.25 0 0 0-.41-.192l-2.36 1.966a.25.25 0 0 0 0 .384l2.36 1.966a.25.25 0 0 0 .41-.192V13h6a5 5 0 0 0 4.48-7.223Z"
+          />
+          <path
+            d="M9 5.5a.5.5 0 0 0-.854-.354l-1.75 1.75a.5.5 0 1 0 .708.708L8 6.707V10.5a.5.5 0 0 0 1 0v-5Z"
+          />
+        </svg>
+        <!-- 随机 -->
+        <i
+          @click="changePlayMode('列表循环')"
+          class="bi bi-shuffle icon"
+          style="color: white; font-size: 0.45rem"
+          v-if="playMode === '随机播放'"
+        ></i>
+        <!-- <i class="bi bi-repeat-1 icon2"></i>
+        <i class="bi bi-repeat icon2"></i> -->
+
         <svg class="icon" aria-hidden="true" @click="changeMusic(-1)">
           <use xlink:href="#icon-shangyishoushangyige"></use>
         </svg>
@@ -158,7 +216,9 @@
 import { Vue3Marquee } from 'vue3-marquee'
 import 'vue3-marquee/dist/style.css'
 import { mapMutations, mapState } from 'vuex'
-import { toRaw } from '@vue/reactivity'
+import { like, likeList } from '@/request/api/item.js'
+import { getMusicComment } from '@/request/api/comment'
+import BScroll from '@better-scroll/core'
 
 export default {
   data () {
@@ -173,52 +233,40 @@ export default {
         time: 0,
         tlyric: '',
         next: 0
-      }]
+      }],
+      musicDetail: '',
+      isLike: false,
+      count: 0, // 評論數量
+      IntervalTime: 0
     }
   },
   components: {
     Vue3Marquee
   },
   computed: {
-    ...mapState(['lyricList', 'currentTime', 'playListIndex', 'itemList', 'duration', 'audioPlaying'])
-    // 加工歌词数据
-    // lyric: function () {
-    //   const arr = ''
-    //   const arr2 = ''
+    ...mapState(['userList', 'lyricList', 'currentTime', 'playListIndex', 'itemList', 'duration', 'audioPlaying', 'playMode'])
 
-    //   if (this.lyricList.lrc.lyric) {
-    //     const arr = this.lyricList.lrc.lyric.split(/[(\r\n)\r\n]+/).map((item, i) => {
-    //       // 分
-    //       const min = item.slice(item.indexOf('[') + 1, item.indexOf(':'))
-    //       // 秒
-    //       const sec = item.slice(item.indexOf(':') + 1, item.indexOf('.'))
-    //       // 毫秒
-    //       const mill = item.slice(item.indexOf('.') + 1, item.indexOf(']'))
-    //       // 歌词
-    //       const lrc = item.slice(item.indexOf(']') + 1, item.length)
-    //       // 毫秒
-    //       const time = parseInt(min) * 60 * 1000 + parseInt(sec) * 1000 + parseInt(mill)
-    //       return { min, sec, mill, lrc, time }
-    //     })
-    //     console.log(arr)
-    //     // 获取下一句歌词的时间
-    //     arr.forEach((item
-    //       , i) => {
-    //       // 如果循环到了最后一句，固定为active样式
-    //       if (i === arr.length - 1 || !arr[i + 1].time) {
-    //         item.next = 100000
-    //       } else { item.next = arr[i + 1].time }// 下一首歌的时间
-    //     })
-
-    //     return arr
-    //   }
-    //  }
   },
   updated () {
   },
+  async created () {
+    // console.log(this.musicList)
+    this.updateArray(this.musicList.al)
+    this.getCommentCount()
+
+    // likeList() 505673461
+    // this.musicDetail = this.itemList[this.playListIndex]
+    if (JSON.stringify(this.userList) !== '{}') {
+      const res = await likeList(this.userList.profile.userId)// this.userList.profile.userId
+      if (res.data.ids.includes(this.itemList[this.playListIndex].id) === true) {
+        // console.log('true')
+        this.isLike = true
+      }
+    }
+  },
 
   mounted () {
-    console.log('lyricList', this.lyricList)
+    // console.log('lyricList', this.lyricList)
 
     // 处理未翻译的歌词
     if (this.lyricList.lrc.lyric) {
@@ -300,8 +348,54 @@ export default {
     ...mapMutations([
       'updatedetailShow',
       'updateplayListIndex',
-      'updateDuration', 'updateLyricList', 'updateAudioPlaying', 'updateIsPlaying', 'updateCurrentTime']),
+      'updateDuration', 'updateLyricList', 'updateAudioPlaying', 'updateIsPlaying', 'updateCurrentTime', 'updatePlayMode', 'updateIsFooterMusic']),
+    updateArray (array) {
+      array = this.addSuffix(array, '?param=100y100')
+    },
+    addSuffix (array, suffix) {
+      return array.map(item => {
+        item.picUrl += suffix
+        return item
+      })
+    },
+    watchLyric () {
+      this.isLyricShow = !this.isLyricShow
+      // const p = document.querySelector('p.active')
+      // console.log(p.getBoundingClientRect())
+      // // getBoundingClientRect().top
+      // console.log(this.$refs.br.getBoundingClientRect())
+      // if (p) {
+      //   this.$refs.musicLyric.scrollTo({
+      //     top: p.offsetTop + 300,
+      //     behavior: 'smooth'
+      //   })
+      // }
+    },
+    async getCommentCount () {
+      const res2 = await getMusicComment(this.musicList.id, 1)
+      this.count = res2.data.total
+      if (this.count > 999) {
+        if (this.count > 100000) {
+          this.count = '10w' + '+'
+        } else this.count = 999 + '+'
+      }
+    },
+    changePlayMode (type) {
+      this.updatePlayMode(type)
+      // this.playMode = type
+      // console.log(this.playMode)
+      this.$toast({
+        message: this.playMode,
+        position: 'bottom',
+        duration: 500
+
+      })
+    },
     backHome: function () {
+      // console.log(this.$route.path)
+      if (this.$route.path === '/videoDetail') {
+        document.getElementById('foot').style.zIndex = '-1'
+      }
       this.isLyricShow = false
       this.updatedetailShow()
     },
@@ -315,20 +409,24 @@ export default {
         index = this.itemList.length - 2
       }
       this.updateplayListIndex(index)
-
-      // setTimeout(() => {
-      //   this.updateTime()
-      // }, 500)
-      // console.log(this.audioPlaying)
-      // 如果经过更新下标和列表音乐没有实际播放，说明这首歌没有版权，就要停止按钮改变
-      // setTimeout(() => {
-      //   if (!this.audioPlaying) {
-      //     this.$toast('应版权方要求,该歌曲无法免费播放')
-      //     this.updateIsPlaying()
-      //     this.updateAudioPlaying()
-      //     return
-      //   }
-      // }, 1000)
+      // 先滚动到顶部，然后当下一句歌词时间之前一直保持在顶部
+      const p = document.querySelector('p.active')
+      if (p) {
+        this.$refs.musicLyric.scrollTo({
+          top: -p.offsetTop - 300,
+          behavior: 'smooth'
+        })
+      }
+      const interval = setInterval(() => {
+        this.IntervalTime += 1000
+        if (p) {
+          this.$refs.musicLyric.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          })
+          if (this.IntervalTime >= this.lyric1[0].next) clearInterval(interval)
+        }
+      }, 1000)
     },
     // 进度条点击事件
     changeProgressBar: function () {
@@ -342,6 +440,35 @@ export default {
       this.$emit('inputIsChange', true)
 
       // console.log(this.currentTime)
+    },
+    intoComment () {
+      this.updatedetailShow()
+
+      this.$router.push({ path: '/comment', query: { id: this.musicList.id } })
+      // console.log(this.musicList.id)
+    },
+    async likeOrDislike (bool) {
+      // if (JSON.stringify(this.userList) !== '{}') {
+      const res = await like(this.musicList.id, bool)
+      if (res.data.code === 200 && bool === true) {
+        this.isLike = true
+      } else if (res.data.code === 200 && bool === false) {
+        this.isLike = false
+      }
+      // } else this.$router.push('/login')
+    },
+    // 处理时间
+    formatSeconds (seconds) {
+      if (seconds === 0) { return '00:00' }
+      // 分钟
+      const minutes = Math.floor(seconds / 60)
+      // 秒
+      const remainingSeconds = Math.floor(seconds % 60)
+
+      // 使用padStart方法添加前导零
+      const minutesString = minutes.toString().padStart(2, '0')
+      const secondsString = remainingSeconds.toString().padStart(2, '0')
+      return `${minutesString}:${secondsString}`
     }
   },
   props: ['musicList', 'isPlaying', 'play', 'addDuration', 'updateTime'],
@@ -350,13 +477,21 @@ export default {
       const p = document.querySelector('p.active')
       // 先获取p这个dom节点，判断p距顶端距离如果大于300就开始滚动
       if (p && p.offsetTop > 300) {
-        this.$refs.musicLyric.scrollTop = p.offsetTop - 300
+        this.$refs.musicLyric.scrollTo({
+          top: p.offsetTop - 300,
+          behavior: 'smooth'
+        })
       }
-      console.log(this.duration)
+      // console.log(this.duration)
 
       if (newValue >= this.duration) {
-        this.changeMusic(1)
-        // this.play()
+        if (this.playMode !== '单曲循环') {
+          if (this.playMode === '列表循环') { this.changeMusic(1) } else {
+            const random = Math.floor(Math.random() * this.itemList.length)
+            // console.log(random)
+            this.changeMusic(random)
+          }
+        }
       }
     },
 
@@ -398,55 +533,68 @@ export default {
           } else { item.next = arr[i + 1].time }// 下一首歌的时间
         })
         // 处理翻译的歌词
-        if (this.lyricList.tlyric.lyric) {
-          const arr2 = this.lyricList.tlyric.lyric.split(/[(\r\n)\r\n]+/).map((item, i) => {
-            // 分
-            const min = item.slice(item.indexOf('[') + 1, item.indexOf(':'))
-            // 秒
-            const sec = item.slice(item.indexOf(':') + 1, item.indexOf('.'))
-            // 毫秒
-            const mill = item.slice(item.indexOf('.') + 1, item.indexOf(']'))
-            // 歌词
-            const lrc = item.slice(item.indexOf(']') + 1, item.length)
-            // 毫秒
-            const time = parseInt(min) * 60 * 1000 + parseInt(sec) * 1000 + parseInt(mill)
+        if (this.lyricList.tlyric) {
+          if (this.lyricList.tlyric.lyric) {
+            const arr2 = this.lyricList.tlyric.lyric.split(/[(\r\n)\r\n]+/).map((item, i) => {
+              // 分
+              const min = item.slice(item.indexOf('[') + 1, item.indexOf(':'))
+              // 秒
+              const sec = item.slice(item.indexOf(':') + 1, item.indexOf('.'))
+              // 毫秒
+              const mill = item.slice(item.indexOf('.') + 1, item.indexOf(']'))
+              // 歌词
+              const lrc = item.slice(item.indexOf(']') + 1, item.length)
+              // 毫秒
+              const time = parseInt(min) * 60 * 1000 + parseInt(sec) * 1000 + parseInt(mill)
 
-            return { min, sec, mill, lrc, time }
-          })
+              return { min, sec, mill, lrc, time }
+            })
 
-          // 处理一下翻译的歌词数组，把空的去掉
-          arr.forEach((item
-            , i) => {
-            if (arr[i].lrc.includes('作词') || arr[i].lrc.includes('作曲') || arr[i].lrc.includes('编曲')) {
-              arr.splice(i, 1)
-            }
-          })
-          arr2.forEach((item
-            , i) => {
-            if (arr2[i].lrc === '') {
-              arr2.splice(i, 1)
-            }
-          })
-
-          arr.forEach((item
-            , i) => {
-            if (arr2.length > i) {
-              if (arr[i].lrc && !arr[i].lrc.includes('作词') && !arr[i].lrc.includes('作曲') && !arr[i].lrc.includes('编曲')) {
-                arr[i].tlyric = arr2[i].lrc
-                // console.log(arr[i].lrc, arr2[i].lrc)
-              } else {
-                arr[i].tlyric = ''
+            // 处理一下翻译的歌词数组，把空的去掉
+            arr.forEach((item
+              , i) => {
+              if (arr[i].lrc.includes('作词') || arr[i].lrc.includes('作曲') || arr[i].lrc.includes('编曲')) {
+                arr.splice(i, 1)
               }
-            }
-          })
+            })
+            arr2.forEach((item
+              , i) => {
+              if (arr2[i].lrc === '') {
+                arr2.splice(i, 1)
+              }
+            })
+
+            arr.forEach((item
+              , i) => {
+              if (arr2.length > i) {
+                if (arr[i].lrc && !arr[i].lrc.includes('作词') && !arr[i].lrc.includes('作曲') && !arr[i].lrc.includes('编曲')) {
+                  arr[i].tlyric = arr2[i].lrc
+                  // console.log(arr[i].lrc, arr2[i].lrc)
+                } else {
+                  arr[i].tlyric = ''
+                }
+              }
+            })
+          }
         }
         this.lyric1 = arr
+        // 每次歌词变换说明切歌了，要滚动回顶部
+
         setTimeout(() => {
           this.addDuration()
         }, 1200)
       }
-    }
+    },
+    musicList: async function () {
+      this.getCommentCount()
 
+      this.isLike = false
+      const res = await likeList(505673461)
+      if (res.data.ids.includes(this.musicList.id) === true) {
+        // console.log('true')
+        this.isLike = true
+      }
+    }
   }
 }
 </script>
@@ -458,7 +606,6 @@ export default {
   height: 100%;
   position: absolute;
   z-index: -1;
-  //   filter: blur(50px);
   background-color: #161824;
 }
 .bgimg {
@@ -511,7 +658,6 @@ export default {
         position: relative;
 
         span {
-          //   padding-top: 20px;
           font-size: 0.27rem;
           color: #999;
         }
@@ -634,7 +780,9 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   .footerTop {
-    width: 100%;
+    margin-left: 0.6rem;
+    margin-right: 0.6rem;
+    width: 84%;
     height: 1rem;
     display: flex;
     justify-content: space-around;
@@ -649,9 +797,30 @@ export default {
       height: 0.6rem;
     }
   }
-  .range {
-    width: 100%;
-    height: 0.06rem;
+
+  .input {
+    position: absolute;
+    width: 93%;
+    transform: translateY(1.4rem);
+    display: flex;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+
+    .left {
+      font-size: 0.21rem;
+      color: white;
+      margin-right: 0.2rem;
+    }
+    .range {
+      // width: 80%;
+      transform: translateY(0.08rem);
+      height: 0.06rem;
+    }
+    .right {
+      margin-left: 0.2rem;
+      font-size: 0.21rem;
+      color: white;
+    }
   }
   //输入框样式
   /*横条样式*/
@@ -680,10 +849,24 @@ export default {
     .icon {
       fill: rgb(245, 234, 234);
     }
+
     .bofang {
       width: 1rem;
       height: 1rem;
     }
   }
+  .icon2 {
+    color: red;
+    font-size: 0.5rem;
+    width: 0.5rem;
+    height: 0.5rem;
+  }
+}
+</style>
+
+<style lang="less">
+.van-toast {
+  background-color: white;
+  color: black;
 }
 </style>

@@ -1,9 +1,11 @@
 import {
-  Swipe, SwipeItem, Button, Sticky, Popup, Toast, Dialog, Collapse, CollapseItem, Icon
+  Swipe, SwipeItem, Button, Sticky, Popup, Toast, Dialog, Collapse, CollapseItem, Icon, Tab, Tabs
+  , Cell, CellGroup, Loading, Overlay
 } from 'vant'
 
 const plugins = [
-  Swipe, SwipeItem, Button, Sticky, Popup, Toast, Dialog, Collapse, CollapseItem, Icon
+  Swipe, SwipeItem, Button, Sticky, Popup, Toast, Dialog, Collapse, CollapseItem, Icon, Tab, Tabs,
+  Cell, CellGroup, Loading, Overlay
 ]
 
 export default function getVant (app) {

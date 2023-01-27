@@ -1,0 +1,117 @@
+Date : 2023-01-15 15:43:24
+Directory : d:\qianduan\musicProject\ACGMusic\music
+Total : 56 files,  31972 codes, 1064 comments, 908 blanks, all 33944 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| JSON               |          2 |     22,105 |          0 |          2 |     22,107 |
+| Vue                |         31 |      8,649 |        906 |        533 |     10,088 |
+| JavaScript         |         17 |        771 |        136 |        104 |      1,011 |
+| CSS                |          1 |        268 |          4 |         85 |        357 |
+| XML                |          1 |        102 |          3 |        171 |        276 |
+| TypeScript         |          1 |         30 |          3 |          3 |         36 |
+| Markdown           |          1 |         19 |          0 |          6 |         25 |
+| HTML               |          1 |         19 |          1 |          4 |         24 |
+| JSON with Comments |          1 |          9 |         11 |          0 |         20 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                              | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                 |         56 |     31,972 |      1,064 |        908 |     33,944 |
+| . (Files)                                                                                         |          8 |     22,209 |         16 |         17 |     22,242 |
+| public                                                                                            |          2 |         34 |          6 |          5 |         45 |
+| public (Files)                                                                                    |          1 |         19 |          1 |          4 |         24 |
+| public\js                                                                                         |          1 |         15 |          5 |          1 |         21 |
+| src                                                                                               |         46 |      9,729 |      1,042 |        886 |     11,657 |
+| src (Files)                                                                                       |          2 |         40 |          3 |          7 |         50 |
+| src\assets                                                                                        |          2 |        370 |          7 |        256 |        633 |
+| src\assets\fonts                                                                                  |          2 |        370 |          7 |        256 |        633 |
+| src\components                                                                                    |         12 |      3,833 |        527 |        258 |      4,618 |
+| src\components\home                                                                               |          8 |      2,301 |        289 |        156 |      2,746 |
+| src\components\home (Files)                                                                       |          5 |        724 |         95 |         60 |        879 |
+| src\components\home\RecommendedDaily                                                              |          1 |        282 |         19 |         18 |        319 |
+| src\components\home\morePlayList                                                                  |          1 |        584 |         43 |         30 |        657 |
+| src\components\home\perFm                                                                         |          1 |        711 |        132 |         48 |        891 |
+| src\components\item                                                                               |          4 |      1,532 |        238 |        102 |      1,872 |
+| src\plugins                                                                                       |          1 |         13 |          0 |          3 |         16 |
+| src\request                                                                                       |          9 |        438 |         90 |         63 |        591 |
+| src\request (Files)                                                                               |          1 |          7 |          0 |          4 |         11 |
+| src\request\api                                                                                   |          8 |        431 |         90 |         59 |        580 |
+| src\router                                                                                        |          1 |        121 |          8 |         20 |        149 |
+| src\store                                                                                         |          1 |        124 |         28 |          7 |        159 |
+| src\views                                                                                         |         18 |      4,790 |        379 |        272 |      5,441 |
+| src\views (Files)                                                                                 |          4 |        810 |         74 |         43 |        927 |
+| src\views\Comment                                                                                 |          2 |        546 |         33 |         25 |        604 |
+| src\views\concernList                                                                             |          1 |        153 |          4 |          9 |        166 |
+| src\views\list                                                                                    |          1 |        267 |         15 |         12 |        294 |
+| src\views\login                                                                                   |          3 |        475 |         28 |         42 |        545 |
+| src\views\singer                                                                                  |          1 |        370 |         28 |         27 |        425 |
+| src\views\userDetail                                                                              |          6 |      2,169 |        197 |        114 |      2,480 |
++---------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                          | language           | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| d:\qianduan\musicProject\ACGMusic\music\.eslintrc.js                                              | JavaScript         |         21 |          2 |          2 |         25 |
+| d:\qianduan\musicProject\ACGMusic\music\README.md                                                 | Markdown           |         19 |          0 |          6 |         25 |
+| d:\qianduan\musicProject\ACGMusic\music\babel.config.js                                           | JavaScript         |          5 |          0 |          1 |          6 |
+| d:\qianduan\musicProject\ACGMusic\music\components.d.ts                                           | TypeScript         |         30 |          3 |          3 |         36 |
+| d:\qianduan\musicProject\ACGMusic\music\jsconfig.json                                             | JSON with Comments |          9 |         11 |          0 |         20 |
+| d:\qianduan\musicProject\ACGMusic\music\package-lock.json                                         | JSON               |     22,062 |          0 |          1 |     22,063 |
+| d:\qianduan\musicProject\ACGMusic\music\package.json                                              | JSON               |         43 |          0 |          1 |         44 |
+| d:\qianduan\musicProject\ACGMusic\music\public\index.html                                         | HTML               |         19 |          1 |          4 |         24 |
+| d:\qianduan\musicProject\ACGMusic\music\public\js\rem.js                                          | JavaScript         |         15 |          5 |          1 |         21 |
+| d:\qianduan\musicProject\ACGMusic\music\src\App.vue                                               | Vue                |         26 |          0 |          3 |         29 |
+| d:\qianduan\musicProject\ACGMusic\music\src\assets\fonts\iconfont.css                             | CSS                |        268 |          4 |         85 |        357 |
+| d:\qianduan\musicProject\ACGMusic\music\src\assets\fonts\iconfont.svg                             | XML                |        102 |          3 |        171 |        276 |
+| d:\qianduan\musicProject\ACGMusic\music\src\components\home\Playlist.vue                          | Vue                |        108 |         48 |         13 |        169 |
+| d:\qianduan\musicProject\ACGMusic\music\src\components\home\RecommendedDaily\RecommendedDaily.vue | Vue                |        282 |         19 |         18 |        319 |
+| d:\qianduan\musicProject\ACGMusic\music\src\components\home\SwpierTop.vue                         | Vue                |         48 |          2 |          4 |         54 |
+| d:\qianduan\musicProject\ACGMusic\music\src\components\home\TopNav.vue                            | Vue                |        336 |         22 |         22 |        380 |
+| d:\qianduan\musicProject\ACGMusic\music\src\components\home\iconList.vue                          | Vue                |        116 |         13 |          9 |        138 |
+| d:\qianduan\musicProject\ACGMusic\music\src\components\home\morePlayList\morePlayList.vue         | Vue                |        584 |         43 |         30 |        657 |
+| d:\qianduan\musicProject\ACGMusic\music\src\components\home\perFm\perFm.vue                       | Vue                |        711 |        132 |         48 |        891 |
+| d:\qianduan\musicProject\ACGMusic\music\src\components\home\personalList.vue                      | Vue                |        116 |         10 |         12 |        138 |
+| d:\qianduan\musicProject\ACGMusic\music\src\components\item\FooterMusic.vue                       | Vue                |        264 |         90 |         31 |        385 |
+| d:\qianduan\musicProject\ACGMusic\music\src\components\item\MusicDetail.vue                       | Vue                |        733 |         87 |         41 |        861 |
+| d:\qianduan\musicProject\ACGMusic\music\src\components\item\itemMusicList.vue                     | Vue                |        270 |         39 |         16 |        325 |
+| d:\qianduan\musicProject\ACGMusic\music\src\components\item\itemMusicTop.vue                      | Vue                |        265 |         22 |         14 |        301 |
+| d:\qianduan\musicProject\ACGMusic\music\src\main.js                                               | JavaScript         |         14 |          3 |          4 |         21 |
+| d:\qianduan\musicProject\ACGMusic\music\src\plugins\vant.js                                       | JavaScript         |         13 |          0 |          3 |         16 |
+| d:\qianduan\musicProject\ACGMusic\music\src\request\api\comment.js                                | JavaScript         |         54 |         18 |          5 |         77 |
+| d:\qianduan\musicProject\ACGMusic\music\src\request\api\home.js                                   | JavaScript         |        118 |         24 |         18 |        160 |
+| d:\qianduan\musicProject\ACGMusic\music\src\request\api\item.js                                   | JavaScript         |         67 |         12 |          7 |         86 |
+| d:\qianduan\musicProject\ACGMusic\music\src\request\api\list.js                                   | JavaScript         |         13 |          2 |          3 |         18 |
+| d:\qianduan\musicProject\ACGMusic\music\src\request\api\morePlayList.js                           | JavaScript         |         32 |          8 |          6 |         46 |
+| d:\qianduan\musicProject\ACGMusic\music\src\request\api\singer.js                                 | JavaScript         |         31 |          5 |          3 |         39 |
+| d:\qianduan\musicProject\ACGMusic\music\src\request\api\userDetail.js                             | JavaScript         |         67 |          9 |         11 |         87 |
+| d:\qianduan\musicProject\ACGMusic\music\src\request\api\video.js                                  | JavaScript         |         49 |         12 |          6 |         67 |
+| d:\qianduan\musicProject\ACGMusic\music\src\request\index.js                                      | JavaScript         |          7 |          0 |          4 |         11 |
+| d:\qianduan\musicProject\ACGMusic\music\src\router\index.js                                       | JavaScript         |        121 |          8 |         20 |        149 |
+| d:\qianduan\musicProject\ACGMusic\music\src\store\index.js                                        | JavaScript         |        124 |         28 |          7 |        159 |
+| d:\qianduan\musicProject\ACGMusic\music\src\views\Comment\bottom.vue                              | Vue                |         80 |          6 |          6 |         92 |
+| d:\qianduan\musicProject\ACGMusic\music\src\views\Comment\comment.vue                             | Vue                |        466 |         27 |         19 |        512 |
+| d:\qianduan\musicProject\ACGMusic\music\src\views\HomeView.vue                                    | Vue                |         39 |          4 |          5 |         48 |
+| d:\qianduan\musicProject\ACGMusic\music\src\views\Search.vue                                      | Vue                |        303 |         40 |         19 |        362 |
+| d:\qianduan\musicProject\ACGMusic\music\src\views\concernList\concernList.vue                     | Vue                |        153 |          4 |          9 |        166 |
+| d:\qianduan\musicProject\ACGMusic\music\src\views\infoUser.vue                                    | Vue                |        426 |         19 |         12 |        457 |
+| d:\qianduan\musicProject\ACGMusic\music\src\views\itemMusic.vue                                   | Vue                |         42 |         11 |          7 |         60 |
+| d:\qianduan\musicProject\ACGMusic\music\src\views\list\list.vue                                   | Vue                |        267 |         15 |         12 |        294 |
+| d:\qianduan\musicProject\ACGMusic\music\src\views\login\Login.vue                                 | Vue                |        132 |          1 |         10 |        143 |
+| d:\qianduan\musicProject\ACGMusic\music\src\views\login\Login2.vue                                | Vue                |        157 |          2 |         13 |        172 |
+| d:\qianduan\musicProject\ACGMusic\music\src\views\login\loginByQrCode.vue                         | Vue                |        186 |         25 |         19 |        230 |
+| d:\qianduan\musicProject\ACGMusic\music\src\views\singer\singer.vue                               | Vue                |        370 |         28 |         27 |        425 |
+| d:\qianduan\musicProject\ACGMusic\music\src\views\userDetail\album.vue                            | Vue                |        229 |         19 |         13 |        261 |
+| d:\qianduan\musicProject\ACGMusic\music\src\views\userDetail\albumDetail.vue                      | Vue                |        530 |         41 |         28 |        599 |
+| d:\qianduan\musicProject\ACGMusic\music\src\views\userDetail\songs.vue                            | Vue                |        237 |         34 |         16 |        287 |
+| d:\qianduan\musicProject\ACGMusic\music\src\views\userDetail\userDetail.vue                       | Vue                |        746 |         51 |         33 |        830 |
+| d:\qianduan\musicProject\ACGMusic\music\src\views\userDetail\video.vue                            | Vue                |        184 |         12 |         11 |        207 |
+| d:\qianduan\musicProject\ACGMusic\music\src\views\userDetail\videoDetail.vue                      | Vue                |        243 |         40 |         13 |        296 |
+| d:\qianduan\musicProject\ACGMusic\music\vue.config.js                                             | JavaScript         |         20 |          0 |          3 |         23 |
+| Total                                                                                             |                    |     31,972 |      1,064 |        908 |     33,944 |
++---------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+

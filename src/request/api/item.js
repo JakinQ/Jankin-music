@@ -41,3 +41,52 @@ export function getDefaultWord () {
     url: '/search/default'
   })
 }
+// 等级
+export function getLevel () {
+  return service({
+    method: 'GET',
+    url: '/user/level'
+  })
+}
+// 云贝签到
+export function yunbei () {
+  return service({
+    method: 'GET',
+    url: '/yunbei/sign'
+  })
+}
+export function concernList (data, timestamp) {
+  return service({
+    method: 'GET',
+    // url: '/daily_signin'
+    url: `/user/follows?uid=${data}&timestamp=${timestamp}`
+  })
+}
+export function singerDetail (id) {
+  return service({
+    method: 'GET',
+    // url: '/daily_signin'
+    url: `/user/detail?uid=${id}`
+  })
+}
+export function followedsList (data) {
+  return service({
+    method: 'GET',
+    url: `/user/followeds?uid=${data}`
+  })
+}
+
+// 喜欢音乐列表
+export function likeList (uid) {
+  return service({
+    method: 'GET',
+    url: `/likelist?uid=${uid}`
+  })
+}
+// 喜欢音乐
+export function like (id, bool) {
+  return service({
+    method: 'GET',
+    url: `/like?id=${id}&like=${bool}`
+  })
+}

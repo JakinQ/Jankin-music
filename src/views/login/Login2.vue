@@ -63,6 +63,7 @@ export default {
       phone: '',
       password: '',
       message: false
+
     }
   },
   methods: {
@@ -87,7 +88,7 @@ export default {
 
   }
 }
-</script >
+</script>
 
 <style lang="less" scoped>
 .phone_login {

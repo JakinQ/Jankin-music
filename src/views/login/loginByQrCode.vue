@@ -1,7 +1,11 @@
 <template>
-  <div class="">
-    <img src="@/assets/qrCodeBg9.jpg" alt="" class="bg" />
-
+  <div style="overflow-y: hidden">
+    <div class="top">
+      <svg class="icon" aria-hidden="true" @click="$router.go(-1)">
+        <use xlink:href="#icon-zuojiantou"></use>
+      </svg>
+    </div>
+    <img src="@/assets/摇滚.jpg" alt="" class="bg" />
     <div class="qrBackground">
       <img class="" :src="this.qrCodeImg" alt="" />
     </div>
@@ -77,30 +81,29 @@ export default {
         // }
         const nowtime2 = new Date().getTime()
         const res = await qrCodeLoginCheck(key, nowtime2).then()
-        console.log(res.data.message, '---')
-        console.log(res)
+        // console.log(res.data.message, '---')
+        // console.log(res)
         // console.log(this.cookie)
         if (res.data.code === 800) {
           this.isOverdue = true
           clearInterval(check)
         }
         if (res.data.code === 803) {
-          this.updateIsLogin()
+          this.updateIsLogin(true)
           this.updateCookie(res.data.cookie)
           this.cookie = res.data.cookie
 
           // console.log(res.data.cookie)
           clearInterval(check)
           const user = await getUser1(this.cookie, nowtime)
-          //   console.log(user)
+          // console.log(user)
 
           const result = await getUser(user.data.account.id)
           this.$store.commit('updateUserList', result.data)
 
           if (result.data) {
-            this.updateIsLogin()
+            this.updateIsLogin(true)
           }
-          console.log(this.playList)
           this.$router.push({
             path: '/infoUser'
           })
@@ -116,11 +119,10 @@ export default {
 
       const user = await getUser1(this.cookie, nowtime)
       // console.log(user)
-
       const result = await getUser(user.data.account.id)
       this.$store.commit('updateUserList', result.data)
       if (result.data) {
-        this.updateIsLogin()
+        this.updateIsLogin(true)
       }
       //   console.log(result.data)
 
@@ -138,15 +140,32 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.top {
+  position: fixed;
+  display: flex;
+  margin: 0.2rem;
+  .icon {
+    width: 0.5rem;
+    height: 0.5rem;
+  }
+  div {
+    font-weight: 550;
+    font-size: 0.382rem;
+    padding-left: 0.406rem;
+  }
+}
 .bg {
   width: 100%;
-  height: 16.3rem;
+  // height: 16.2rem;
+  height: 100%;
+
   z-index: -1;
+  overflow: hidden;
 }
 .qrBackground-before {
   content: "";
   position: absolute;
-  top: 0.75rem;
+  top: 1.75rem;
   left: 27%;
   background-color: white;
   height: 3.15rem;
@@ -157,7 +176,7 @@ export default {
 
 .qrBackground {
   position: absolute;
-  top: 0.8rem;
+  top: 1.8rem;
   left: 27%;
   z-index: 1;
   width: 3.6rem;
@@ -166,8 +185,8 @@ export default {
 }
 .update {
   position: absolute;
-  top: 2rem;
-  left: 34%;
+  top: 2.9rem;
+  left: 32%;
   background-color: rgb(39, 200, 15);
   height: 0.8rem;
   width: 2.4rem;
@@ -178,24 +197,32 @@ export default {
 }
 .text {
   z-index: 2;
-  // height: 30px;
   position: absolute;
-  top: 1.5rem;
-  left: 32%;
+  top: 2.2rem;
+  left: 31%;
   font-size: 0.37rem;
   font-weight: 550;
 }
 .tips {
   z-index: 2;
   position: absolute;
-  top: 0;
-  left: 26.5%;
+  top: 1rem;
+  left: 27%;
   color: aliceblue;
+  // color: white;
+
   font-weight: 600;
-  opacity: 0.6;
+  opacity: 0.8;
 }
 .linshi {
-  position: absolute;
-  top: 0;
+  position: fixed;
+  border: none;
+  background-color: transparent;
+  outline: none; //消除默认点击蓝色边框效果
+  padding: 0.0875rem;
+  border: 0.0175rem solid red;
+  border-radius: 15%;
+  top: 0.2rem;
+  right: 0.2rem;
 }
 </style>
