@@ -2,7 +2,7 @@
   <div>
     <!-- 背景图 -->
     <img
-      :src="musicList.al.picUrl"
+      :src="changeImg(musicList.al.picUrl, 100)"
       :class="musicList.al.picUrl ? 'bgimg' : 'bgimg2'"
       class="bgimg"
       alt=""
@@ -48,7 +48,7 @@
 
       <img
         @click="watchLyric()"
-        :src="musicList.al.picUrl"
+        :src="changeImg(musicList.al.picUrl, 500)"
         class="img_ar"
         alt=""
         :class="isPlaying ? 'img_ar_active' : 'img_ar_pauesd'"
@@ -250,14 +250,15 @@ export default {
   updated () {
   },
   async created () {
-    // console.log(this.musicList)
-    this.updateArray(this.musicList.al)
     this.getCommentCount()
+    // console.log(this.musicList)
 
     // likeList() 505673461
     // this.musicDetail = this.itemList[this.playListIndex]
     if (JSON.stringify(this.userList) !== '{}') {
-      const res = await likeList(this.userList.profile.userId)// this.userList.profile.userId
+      const res = await likeList(this.userList.profile.userId, localStorage.getItem('cookie'))// this.userList.profile.userId
+      // console.log(res)
+      // console.log(this.itemList[this.playListIndex].id)
       if (res.data.ids.includes(this.itemList[this.playListIndex].id) === true) {
         // console.log('true')
         this.isLike = true
@@ -349,15 +350,16 @@ export default {
       'updatedetailShow',
       'updateplayListIndex',
       'updateDuration', 'updateLyricList', 'updateAudioPlaying', 'updateIsPlaying', 'updateCurrentTime', 'updatePlayMode', 'updateIsFooterMusic']),
-    updateArray (array) {
-      array = this.addSuffix(array, '?param=100y100')
+    changeImg (url, size) {
+      url += '?param=' + size + 'y' + size
+      return url
     },
-    addSuffix (array, suffix) {
-      return array.map(item => {
-        item.picUrl += suffix
-        return item
-      })
-    },
+    // addSuffix (array, suffix) {
+    //   return array.map(item => {
+    //     item.picUrl += suffix
+    //     return item
+    //   })
+    // },
     watchLyric () {
       this.isLyricShow = !this.isLyricShow
       // const p = document.querySelector('p.active')
@@ -589,7 +591,8 @@ export default {
       this.getCommentCount()
 
       this.isLike = false
-      const res = await likeList(505673461)
+      const res = await likeList(this.userList.profile.userId, localStorage.getItem('cookie'))// this.userList.profile.userId
+
       if (res.data.ids.includes(this.musicList.id) === true) {
         // console.log('true')
         this.isLike = true

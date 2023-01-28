@@ -12,8 +12,6 @@
         :show-indicators="false"
       >
         <van-swipe-item v-for="item in state.musicList" :key="item">
-          <!-- 私人fm -->
-
           <!-- 推荐歌单 -->
           <router-link :to="{ path: '/itemMusic', query: { id: item.id } }">
             <span class="item.name"></span>
@@ -36,7 +34,7 @@
 <script>
 import { getMusicList, getPreMusic } from '@/request/api/home'
 import { reactive, onMounted } from 'vue'
-import { useStore } from 'vuex'
+import { useStore, mapMutations, mapState } from 'vuex'
 
 // getPreFm
 
@@ -61,9 +59,12 @@ export default {
     onMounted(async () => {
       // const res = await getMusicList()
       // console.log('res', res)
-      const res2 = await getPreMusic()
-      // console.log('res2', res2)
-      state.musicList = res2.data.recommend
+      if (store.state.isLogin) {
+        const res2 = await getPreMusic(localStorage.getItem('cookie'))
+        // console.log('res2', res2)
+        state.musicList = res2.data.recommend
+        // console.log(res2)
+      }
     })
     return { state, changeCount, store }
   }

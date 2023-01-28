@@ -77,10 +77,10 @@ export function followedsList (data) {
 }
 
 // 喜欢音乐列表
-export function likeList (uid) {
+export function likeList (uid, cookie) {
   return service({
     method: 'GET',
-    url: `/likelist?uid=${uid}`
+    url: `/likelist?uid=${uid}&cookie=${cookie}`
   })
 }
 // 喜欢音乐

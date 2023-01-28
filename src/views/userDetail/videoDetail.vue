@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 7.5075rem; overflow-x: hidden">
+  <div style="width: 7.5075rem">
     <div class="topNav" v-show="!detailShow && !movieIsPlaying">
       <div class="topLeft">
         <svg class="icon" aria-hidden="true" @click="back()">
@@ -113,7 +113,7 @@
       </div>
     </div>
     <!-- 歌手盒子 -->
-    <van-sticky :offset-top="240">
+    <van-sticky :offset-top="4.2 + 'rem'">
       <div class="artists" v-if="videoDetail.artists">
         <img :src="videoDetail.artists[0].img1v1Url" alt="" />
         <span>{{ videoDetail.artists[0].name }}</span>
@@ -151,10 +151,14 @@
     </van-overlay>
 
     <!-- 相关音乐 -->
-    <div class="similarMusic" v-if="this.$route.query.type === '3'">
+    <div
+      class="similarMusic"
+      style="margin-top: 0.2rem"
+      v-if="this.$route.query.type === '3' && musicDetail[0]"
+    >
       相关音乐
     </div>
-    <div class="music" v-if="this.$route.query.type === '3'">
+    <div class="music" v-if="this.$route.query.type === '3' && musicDetail[0]">
       <!-- 歌名 -->
       <div class="left" @click="playMusic(i)">
         <img :src="musicDetail[0].al.picUrl" alt="" />
@@ -322,7 +326,7 @@ export default {
       liked0: false,
       liked: [false],
       liked2: [false],
-
+      searchResult: { songs: [{ ar: [] }] },
       playerOptions: {
         // bigPlayButton: false,
         // 是否等浏览器准备好后自动播放
@@ -385,14 +389,32 @@ export default {
       // 获取mv详情
       const mv = await getMvDetail(this.$route.query.id)
       this.videoDetail = mv.data.data
-      // 获取相关音乐
-      const search1 = await search(this.videoDetail.artistName + ' ' + this.videoDetail.name, 1)
+      // console.log(this.videoDetail)
+      // 获取相关音乐  先搜索相关歌曲，找到名字完全相同的，然后还可以找歌手相同的，否则不显示相关音乐
+      // 处理视频名字方便搜索
+      const index = this.videoDetail.name.indexOf('(')
+      if (index >= 0) { this.videoDetail.name = this.videoDetail.name.substring(0, index) }
+      const search1 = await search(this.videoDetail.name, 1)
+      // const search1 = await search(this.videoDetail.artistName + ' ', 1)
+      this.searchResult = search1.data.result
       // console.log(search1.data.result.songs[0])
-      this.musicDetail[0] = search1.data.result.songs[0]
-      // console.log(this.musicDetail[0])
-      const music = await getMusic(search1.data.result.songs[0].id)
-      // console.log(music.data.data)
-      this.musicSource = music.data.data
+      // console.log(this.searchResult)
+
+      // 假如没有搜索结果，则直接将musicDetail[0]未定义，不能显示相关音乐
+      if (this.searchResult.songs) {
+        const filter1 = this.searchResult.songs.filter(item => item.ar[0].name === this.videoDetail.artistName || item.ar[item.ar.length - 1].name === this.videoDetail.artistName)
+        // console.log(filter1)
+        // 搜索结果匹配
+        if (filter1 !== '[]') {
+          this.musicDetail[0] = filter1[0]
+          // console.log(this.musicDetail)
+          // 获取音乐资源
+          const music = await getMusic(search1.data.result.songs[0].id)
+          // console.log(music.data.data)
+          this.musicSource = music.data.data
+        }
+      } else this.musicDetail[0] = undefined
+
       // 获取mv资源
       const url = await getMvUrl(this.$route.query.id)
       this.videoUrl = url.data.data
@@ -593,7 +615,7 @@ export default {
   display: flex;
   align-items: center;
   color: white;
-  overflow: hidden;
+  // overflow: hidden;
 
   .icon {
     color: white;

@@ -98,11 +98,12 @@ export default {
     }
   },
   async created () {
+    // console.log(1)
     const aData = new Date()
     this.date.m = aData.getMonth() + 1
     this.date.d = aData.getDate()
 
-    const res = await getRecommendedDailySongs()
+    const res = await getRecommendedDailySongs(localStorage.getItem('cookie'))
     this.songsList = res.data.data
     this.updateArray(this.songsList.dailySongs)
   },

@@ -256,7 +256,7 @@ import { mapState } from 'vuex'
 import { ref } from 'vue'
 import {
   getUserMore,
-  getUserSongList
+  getUserSongList, loginStatus
 } from '@/request/api/home'
 import TopNav from '@/components/home/TopNav.vue'
 
@@ -281,12 +281,17 @@ export default {
 
   },
   async mounted () {
-    // const res = await loginStatus()
+    // const res1 = await loginStatus(localStorage.getItem('cookie'))
+    // console.log(localStorage.getItem('cookie'))
+    // console.log(res1)
     // this.userList = res.data.profile
     // const uid = this.userList.profile.userId
     // console.log('this.userList', this.userList.profile.userId)
     // 获取歌单数量信息
-    const res = await getUserMore()
+    // const res = await getUserMore(localStorage.getItem('cookie'))
+    // console.log(localStorage.getItem('cookie'))
+    const res = await getUserMore(localStorage.getItem('cookie'))
+
     this.songCount = res.data
     // 获取用户的歌单
     const res2 = await getUserSongList(this.userList.profile.userId)

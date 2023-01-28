@@ -49,7 +49,7 @@
       </van-tab>
     </van-tabs>
 
-    <van-sticky :offset-top="134">
+    <van-sticky :offset-top="2.4 + 'rem'">
       <div class="head">热门歌手</div>
     </van-sticky>
 

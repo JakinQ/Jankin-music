@@ -24,7 +24,7 @@
       swipeable
       animated
       lazy-render
-      offset-top="55"
+      offset-top="0.963rem"
     >
       <van-tab title="最近一周" title-style="font-size: 0.36rem">
         <div class="itemMusicList">

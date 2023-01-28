@@ -11,10 +11,12 @@ import 'video.js/dist/video-js.css'
 // import 'video.js-landscape-fullscreen'
 
 import getVant from './plugins/vant'
+import VueCookies from 'vue-cookies'
 
 const app = createApp(App)
 getVant(app)
 app.use(store)
+app.use(VueCookies)
 app.use(router)
 // app.use(VueVideoPlayer)
 app.mount('#app')

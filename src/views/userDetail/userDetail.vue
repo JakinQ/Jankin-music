@@ -412,7 +412,7 @@ export default {
     // console.log('热门歌曲', this.hotSongs)
     this.hotSongsM = this.hotSongs.slice(0, 3)
     this.updateArray2(this.hotSongsM)
-    console.log(this.hotSongsM)
+    // console.log(this.hotSongsM)
   },
   mounted () {
     window.addEventListener('scroll', this.handleScroll) // 监听页面滚动
@@ -436,10 +436,6 @@ export default {
       // console.log(object)
     },
     addSuffix (object, suffix) {
-      // return array.map(item => {
-      //   item.cover += suffix
-      //   return item
-      // })
       object.cover += suffix
       return object
     },

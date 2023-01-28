@@ -10,11 +10,12 @@ import './assets/fonts/iconfont.css'
 import 'video.js/dist/video-js.css'
 // import videojs from 'video.js'
 // import 'video.js-landscape-fullscreen'
+import VueCookies from 'vue-cookies'
 
 import getVant from './plugins/vant'
 
 const app = createApp(App)
-
+app.use(VueCookies)
 getVant(app)
 app.use(store)
 app.use(router)

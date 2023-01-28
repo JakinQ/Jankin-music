@@ -39,7 +39,12 @@
       </van-tab>
       <van-tab title="粉丝" title-style="font-size: 0.36rem;">
         <!-- 粉丝列表 -->
-        <div class="concernList" v-for="(item, i) in followedsList" :key="i">
+        <div
+          class="concernList"
+          v-for="(item, i) in followedsList"
+          :key="i"
+          @click="concernDetails(item)"
+        >
           <!-- 头像 -->
           <img :src="item.avatarUrl" alt="" />
           <!-- 名字和签名 -->

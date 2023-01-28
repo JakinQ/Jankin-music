@@ -92,7 +92,11 @@ export default {
           this.updateIsLogin(true)
           this.updateCookie(res.data.cookie)
           this.cookie = res.data.cookie
+          // this.$cookies.set('cookie', this.cookie)
 
+          localStorage.setItem('cookie', this.cookie)
+
+          // 更新cookie
           // console.log(res.data.cookie)
           clearInterval(check)
           const user = await getUser1(this.cookie, nowtime)
@@ -124,6 +128,7 @@ export default {
       if (result.data) {
         this.updateIsLogin(true)
       }
+      localStorage.setItem('cookie', this.cookie)
       //   console.log(result.data)
 
       this.$router.push({

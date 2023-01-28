@@ -38,7 +38,7 @@ module.exports = defineConfig({
       webSocketURL: 'ws://0.0.0.0:8080/ws'
     },
     // disableHostCheck: true,
-
+    // 让手机也可以用
     host: '10.1.1.130', // ip
     port: 8080, // 设置端口号
     https: false, // https:{type:Boolean}

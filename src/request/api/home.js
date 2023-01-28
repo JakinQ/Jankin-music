@@ -17,10 +17,10 @@ export function getMusicList () {
   })
 }
 // 私人歌单
-export function getPreMusic () {
+export function getPreMusic (cookie) {
   return service({
-    method: 'GET',
-    url: '/recommend/resource'
+    method: 'POST',
+    url: '/recommend/resource?cookie=' + cookie
   })
 }
 
@@ -37,7 +37,7 @@ export function getSearchMusic (data) {
 //    /login/cellphone?phone=xxx&password=yyy
 export function getPhoneLogin (data) {
   return service({
-    method: 'GET',
+    method: 'POST',
     url: `/login/cellphone?phone=${data.phone}&password=${data.password}`
 
     // url: '/check/music?id=33894312'
@@ -48,7 +48,7 @@ export function getPhoneLogin (data) {
 // 获得key
 export function qrCodeLoginKey (timestamp) {
   return service({
-    method: 'GET',
+    method: 'POST',
     url: '/login/qr/key?timestamp=\' + timestamp'
 
     // url: '/check/music?id=33894312'
@@ -65,17 +65,17 @@ export function qrCodeLoginImg (key) {
 // 检测二维码状态
 export function qrCodeLoginCheck (key, timestamp) {
   return service({
-    method: 'post',
+    method: 'POST',
     url: '/login/qr/check?key=' + key + '&timestamp=' + timestamp
 
   })
 }
 
 // 登录状态
-export function loginStatus () {
+export function loginStatus (cookie) {
   return service({
     method: 'get',
-    url: '/login/status'
+    url: '/login/status?cookie=' + cookie
   })
 }
 // 登录状态
@@ -90,7 +90,7 @@ export function logOut () {
 export function getUser1 (cookie, time) {
   return service({
     method: 'post',
-    url: 'http://localhost:3000/user/account?time',
+    url: '/user/account?time',
     data: {
       cookie: cookie
     }
@@ -107,10 +107,10 @@ export function getUser (data) {
   })
 }
 // 获取登录用户信息 , 歌单，收藏，mv, dj 数量
-export function getUserMore () {
+export function getUserMore (cookie) {
   return service({
     method: 'get',
-    url: '/user/subcount'
+    url: `/user/subcount?cookie=${cookie}`
   })
 }
 
@@ -130,9 +130,9 @@ export function checkMusicFree (feeId) {
 }
 
 // 获取日推歌曲
-export function getRecommendedDailySongs () {
+export function getRecommendedDailySongs (cookie) {
   return service({
-    url: '/recommend/songs'
+    url: '/recommend/songs?cookie=' + cookie
   })
 }
 // 私人FM
@@ -154,6 +154,15 @@ export function getSingerDetail (id) {
   return service({
     method: 'get',
     url: `/artist/detail?id=${id}`
+
+  })
+}
+
+// 获取歌曲url
+export function getMusicSrc (id) {
+  return service({
+    method: 'get',
+    url: `/song/url?id=${id}`
 
   })
 }

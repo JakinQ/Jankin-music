@@ -57,7 +57,15 @@
         perFm ? perFmList[playListIndex].id : itemList[playListIndex].id
       }.mp3`"
     ></audio>
-
+    <!-- <audio
+      :loop="changLoop()"
+      ref="audio"
+      @change="onChange"
+      @pause="onPause"
+      @play="onPlay"
+      @error="onError"
+      src="https://music.163.com/song/media/outer/url?id=657666.mp3"
+    ></audio> -->
     <!-- 弹出层 -->
     <van-popup
       v-model:show="detailShow"
@@ -95,7 +103,7 @@
 import { mapMutations, mapState } from 'vuex'
 import MusicDetail from '@/components/item/MusicDetail.vue'
 import PerFm from '@/components/home/perFm/perFm.vue'
-import { getPreFm } from '@/request/api/home.js'
+import { getPreFm, getMusicSrc } from '@/request/api/home.js'
 
 // import TopNav from '@/components/home/TopNav.vue'
 
@@ -134,7 +142,8 @@ export default {
   },
 
   async mounted () {
-    // console.log(this.$refs)
+    // const src = await getMusicSrc(this.itemList[this.playListIndex])
+    // console.log(src)
     this.$store.dispatch('getLyric', this.itemList[this.playListIndex].id)
     this.updateTime()
 
@@ -161,9 +170,12 @@ export default {
     },
     play: function () {
       // 如果音乐暂停就播放
+      // console.log(this.$refs.audio.paused)
       if (this.$refs.audio.paused) {
         // console.log('this.audioPlaying', this.audioPlaying)
         this.$refs.audio.play()
+        // console.log(this.$refs.audio)
+
         this.updateIsPlaying()
         this.updateTime()
       } else {

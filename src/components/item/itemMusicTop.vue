@@ -1,6 +1,6 @@
 <template>
   <div class="itemMusicTop">
-    <img :src="playlist.coverImgUrl" alt="" class="bgImg" />
+    <img :src="changeImg(playlist.coverImgUrl)" alt="" class="bgImg" />
     <!-- 左边 -->
     <div class="itemLeft">
       <svg class="icon" aria-hidden="true" @click="$router.go(-1)">
@@ -19,7 +19,7 @@
   <div class="itemTopContent">
     <!-- 左边头像 -->
     <div class="contentLeft">
-      <img :src="playlist.coverImgUrl" alt="" />
+      <img :src="changeImg(playlist.coverImgUrl)" alt="" />
 
       <div class="palyCount">
         <svg class="icon" aria-hidden="true">
@@ -33,7 +33,7 @@
       <p class="rightP_one">{{ playlist.name }}</p>
       <div class="right_img">
         <div v-if="playlist.creator">
-          <img :src="playlist.creator.avatarUrl" alt="" />
+          <img :src="changeImg(playlist.creator.avatarUrl)" alt="" />
           <span>{{ playlist.creator.nickname }}</span>
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-youjiantou"></use>
@@ -80,14 +80,11 @@
 </template>
 
 <script>
+import { onMounted } from '@vue/runtime-core'
+
 export default {
   //   const dres = '介绍:无
   setup (props) {
-    // console.log(props)
-    // props.playlist.creator = ''
-    // if (!props.playlist.creator) {
-    //   props.playlist.creator = sessionStorage.getItem()
-    // }
     // 对播放量的处理
 
     function changeCount (num) {
@@ -101,7 +98,24 @@ export default {
     return { changeCount }
   },
   props: ['playlist'],
+  mounted () {
+    // this.updateArray(this.playlist, 100)
+    // console.log(this.playlist)
+  },
   methods: {
+    changeImg (src) {
+      src += '?param=100y100'
+      return src
+    },
+    updateArray (object, size) {
+      // console.log(object)
+      object = this.addSuffix(object, '?param=' + size + 'y' + size)
+    },
+    addSuffix (object, suffix) {
+      object.coverImgUrl += suffix
+      return object
+    },
+
     intoComment () {
       // console.log(this.playlist)
       // $router.push({ path: '/comment', query: { id: this.musicList.id } })

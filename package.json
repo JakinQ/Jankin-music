@@ -18,6 +18,7 @@
     "videojs-landscape-fullscreen": "^11.1111.0",
     "vue": "^3.2.13",
     "vue-carousel": "^0.18.0",
+    "vue-cookies": "^1.8.2",
     "vue-router": "^4.0.3",
     "vue3-marquee": "^3.1.2",
     "vuex": "^4.0.0"

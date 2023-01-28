@@ -2,7 +2,7 @@
   <div style="height: 100vh; overflow: scroll" @scroll="handleScroll($event)">
     <div class="top">
       <div class="left">
-        <span style="font-size: 0.32rem; font-weight: 600"
+        <span style="font-size: 0.32rem; font-weight: 700"
           >全部
           <span style="left: 0.1rem; position: relative; bottom: 0.04rem"
             >(共{{ VideoCount }}个)</span

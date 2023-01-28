@@ -78,7 +78,7 @@ export default {
     // console.log(album)
     // this.albumList = album.data
     this.updateArray(this.albumList.hotAlbums)
-    console.log(this.albumList.hotAlbums)
+    // console.log(this.albumList.hotAlbums)
   },
   methods: {
     changeDate (time) {

@@ -231,7 +231,8 @@ export default {
     // this.musicDetail = this.itemList[this.playListIndex]
     // console.log(this.musicDetail)
     if (JSON.stringify(this.userList) !== '{}') {
-      const res = await likeList(this.userList.profile.userId)// this.userList.profile.userId
+      const res = await likeList(this.userList.profile.userId, localStorage.getItem('cookie')
+      )// this.userList.profile.userId
       if (res.data.ids.includes(this.perFmList[this.playListIndex].id) === true) {
         // console.log('true')
         this.isLike = true
@@ -608,7 +609,7 @@ export default {
 
       this.isLike = false
       if (JSON.stringify(this.userList) !== '{}') {
-        const res = await likeList(this.userList.profile.userId)// this.userList.profile.userId
+        const res = await likeList(this.userList.profile.userId, localStorage.getItem('cookie'))// this.userList.profile.userId
         if (res.data.ids.includes(this.perFmList[this.playListIndex].id) === true) {
           // console.log('true')
           this.isLike = true

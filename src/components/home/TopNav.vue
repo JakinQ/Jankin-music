@@ -29,6 +29,7 @@
 
     <!-- 弹出层 -->
     <van-popup
+      style="overflow-y: hidden"
       v-model:show="show"
       position="left"
       class="popup"
@@ -99,7 +100,7 @@
         </div>
       </div>
       <div class="space"></div>
-      <div class="popup-bottom">
+      <div class="popup-bottom" v-if="userList.profile">
         <button @click="loginOut">退出登录</button>
       </div>
     </van-popup>
@@ -323,7 +324,7 @@ export default {
     }
   }
   .popup-mid {
-    height: 27%;
+    height: 30%;
     background-color: white;
     border-top: #ebebeb solid 0.0175rem;
 
@@ -363,17 +364,19 @@ export default {
   }
   .space {
     width: 100%;
-    height: 8rem;
+    height: 7.5rem;
     background-color: #ebebeb;
   }
   .popup-bottom {
     position: fixed;
-    bottom: 0;
+    bottom: 0rem;
     width: 100%;
-    height: 6.2%;
+    height: 0.7rem;
     background-color: white;
     button {
-      transform: translateX(70%);
+      transform: translateX(1.75rem);
+      margin-top: 0.05rem;
+      align-items: center;
       border-radius: 0.8rem;
       background: red;
       color: white;
