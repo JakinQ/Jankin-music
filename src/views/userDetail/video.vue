@@ -94,7 +94,7 @@ export default {
     // this.mvList = mv.data
     this.cursor = this.videoList.page.cursor
 
-    // console.log(mv)
+    // console.log(this.videoList)
   },
   methods: {
     ...mapMutations(['updateInVideoPage']),

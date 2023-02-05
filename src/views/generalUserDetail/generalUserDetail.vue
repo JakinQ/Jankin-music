@@ -33,17 +33,26 @@
             | 粉丝
             {{ changeCount2(userDetail.profile.followeds) }}</span
           >
+
           <div class="list">
             <div
               class="age"
-              :class="userDetail.profile.gender === 1 ? 'man' : 'women'"
+              :class="
+                (userDetail.profile.gender === 1 ? 'man' : 'level',
+                userDetail.profile.gender === 2 ? 'women' : 'level')
+              "
+              v-if="userDetail.profile.birthday > 0"
             >
               <i
                 v-if="userDetail.profile.gender === 2"
                 class="bi bi-gender-female"
                 style="color: rgb(230, 143, 177)"
               ></i>
-              <i class="bi bi-gender-male" v-else></i>
+              <i
+                class="bi bi-gender-male"
+                v-else-if="userDetail.profile.gender === 1"
+              ></i>
+              <!-- <i class="bi bi-gender-male" v-else></i> -->
               {{ getAge(userDetail.profile.birthday) }}后
             </div>
             <div class="level">Lv.{{ userDetail.level }}</div>
@@ -103,7 +112,7 @@
           "
         >
           <div>
-            <img :src="oneWeekList[0].song.al.picUrl" alt="" />
+            <img src="./1.png" alt="" />
             <div>
               <span class="listName">
                 {{ userDetail.profile.nickname }}的听歌排行
@@ -220,7 +229,7 @@
               >村龄: {{ age }}年(
               {{ getCreateTime(userDetail.profile.createTime) }}注册)</span
             >
-            <span v-if="userDetail.profile.birthday"
+            <span v-if="userDetail.profile.birthday > 0"
               >年龄: {{ getAge(userDetail.profile.birthday) }}后</span
             >
             <span style="margin-bottom: 0.5rem" v-if="singerDetail.user"
@@ -331,7 +340,7 @@ export default {
       playList: [],
       isShowCollapse1: true,
       isShowCollapse2: true,
-      activeNames: ['1', '2'],
+      activeNames: [1, 2],
       provinceData: [],
       singerDetail: {
         artist: {
@@ -380,7 +389,7 @@ export default {
     // 获得最近听歌
     const oneWeek = await getSingerList(this.$route.query.id, 1)
     this.oneWeekList = oneWeek.data.weekData
-    // console.log(oneWeek)
+    // console.log(this.oneWeekList[0])
 
     // const res = await getSingerDetail(this.$route.query.id)
     // this.singerDetail = res.data.data
@@ -493,20 +502,7 @@ export default {
         return (num / 10000).toFixed(0) + '万'
       } else { return num }
     },
-    tnsAndAlia (item) {
-      // 没有译名且不是主题曲，直接返回空
-      if (item.alia.length === 0 && item.al.tns.length === 0) return ''
-      // 都有则返回译名和主题曲信息
-      else if (item.alia.length !== 0 && item.al.tns.length !== 0) {
-        return '(' + item.al.tns[0] + ' (' + item.alia[0] + '))'
-      } else if (item.alia.length === 0) { // 返回译名
-        if (item.al.tns.length !== 0) {
-          return '(' + item.al.tns[0] + ')'
-        } else return ''
-      } else { // 返回主题曲信息
-        if (item.alia[0].length !== 0) return '( ' + item.alia[0] + ' )'
-      }
-    },
+
     // 将时间戳转换成年月日
     changeDate (time) {
       const date = new Date(time)
@@ -517,11 +513,7 @@ export default {
       this.time = formattedDate
       return formattedDate
     },
-    playMusic () {
-      // alert(1)
-      this.updatePerFm()
-      this.active = 1
-    },
+
     async updateFollow (bool, bool2) {
       // console.log(bool2)
       if (JSON.stringify(this.userList) !== '{}') {
@@ -662,6 +654,7 @@ export default {
         // color: #cad4dd;
         color: white;
         display: flex;
+
         .women {
           // background-color: rgb(230, 143, 177, 0.9);
           background-color: rgb(182, 121, 147);

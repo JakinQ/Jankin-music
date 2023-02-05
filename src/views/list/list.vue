@@ -152,6 +152,7 @@ export default {
   },
   async mounted () {
     const res = await allListDetail()
+    // console.log(res)
     // 筛选含有ToplistType的 官方榜
     const res2 = res.data.list.filter(item => Object.keys(item).includes('ToplistType'))
     // console.log(res)

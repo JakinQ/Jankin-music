@@ -368,6 +368,7 @@ export default {
   },
   async created () {
     const album = await getAlbum(this.$route.query.id)
+    // console.log(album)
     this.albumList = album.data
     this.albumList.hotAlbums.sort((a, b) => b.publishTime - a.publishTime)
     // console.log(this.albumList)
@@ -377,6 +378,7 @@ export default {
     // const res = await getSingerDetail(5781)//薛之谦  7763邓紫棋//33927412夜游
     const res = await getSingerDetail(this.$route.query.id)
     this.singerDetail = res.data.data
+    // console.log(res)
 
     // console.log(this.singerDetail)
     this.updateArray(this.singerDetail.artist, 500)
@@ -384,9 +386,12 @@ export default {
     if (JSON.stringify(this.singerDetail.user)) {
       const dynamic = await getUserDynamic(this.singerDetail.user.userId)
       this.eventList = dynamic.data
+      // console.log(dynamic.data)
+
       // console.log(JSON.parse(this.jsonList[0].json))
       this.eventList.events.forEach(item => {
         item.json = JSON.parse(item.json)
+        // console.log(item.json)
       })
 
       // console.log(this.eventList)

@@ -45,7 +45,12 @@
           <!-- 背景虚化 -->
           <img :src="userList.profile.avatarUrl" alt="" class="bgImg" />
 
-          <img :src="userList.profile.avatarUrl" alt="" class="profileimg" />
+          <img
+            :src="userList.profile.avatarUrl"
+            alt=""
+            class="profileimg"
+            @click="intoDetail(userList.profile.userId)"
+          />
           <p class="name">
             {{ userList.profile.nickname }}
             丨Lv.{{ level }}
@@ -155,6 +160,12 @@ export default {
     ...mapMutations([
       'updateQiandao', 'updateIsLogin'
     ]),
+    intoDetail (id) {
+      this.$router.push({
+        path: '/generalUserDetail',
+        query: { id: id }
+      })
+    },
     login: function () {
       this.$router.push('/infoUser')
     },

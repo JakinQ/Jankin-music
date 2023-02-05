@@ -129,7 +129,7 @@ export default {
         this.updateIsLogin(true)
       }
       localStorage.setItem('cookie', this.cookie)
-      //   console.log(result.data)
+      // console.log(result.data)
 
       this.$router.push({
         path: '/infoUser'

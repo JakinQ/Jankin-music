@@ -79,6 +79,7 @@ export default {
 
       if (this.phone) {
         this.$store.commit('updateIsLogin', true)
+        localStorage.setItem('cookie', this.cookie)
         this.$router.push('/infoUser')
       } else {
         this.$toast('账号或密码错误')

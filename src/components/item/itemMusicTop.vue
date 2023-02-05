@@ -80,13 +80,14 @@
 </template>
 
 <script>
-import { onMounted } from '@vue/runtime-core'
+import { useRoute } from 'vue-router'
+import { getItemMusicList, getItemList } from '../../request/api/item'
 
 export default {
   //   const dres = '介绍:无
   setup (props) {
     // 对播放量的处理
-
+    const isGuanFang = false
     function changeCount (num) {
       if (num >= 100000000) {
         return (num / 100000000).toFixed(0) + '亿'
@@ -95,10 +96,11 @@ export default {
       } else { return num }
     }
     // console.log(props)
-    return { changeCount }
+    return { changeCount, isGuanFang }
   },
   props: ['playlist'],
   mounted () {
+
     // this.updateArray(this.playlist, 100)
     // console.log(this.playlist)
   },

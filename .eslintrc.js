@@ -18,7 +18,7 @@ module.exports = {
     // 'vue/no-mutating-props': 0
     'no-useless-return': 'off',
     'no-unused-vars': 'off',
-    'vue/return-in-computed-property': 'off'
-
+    'vue/return-in-computed-property': 'off',
+    'prefer-const ': 0
   }
 }

@@ -280,7 +280,7 @@ export default {
         const mill = item.slice(item.indexOf('.') + 1, item.indexOf(']'))
         // 歌词
         const lrc = item.slice(item.indexOf(']') + 1, item.length)
-        // 毫秒
+        // 总时间
         const time = parseInt(min) * 60 * 1000 + parseInt(sec) * 1000 + parseInt(mill)
         return { min, sec, mill, lrc, time }
       })
@@ -485,7 +485,6 @@ export default {
         })
       }
       // console.log(this.duration)
-
       if (newValue >= this.duration) {
         if (this.playMode !== '单曲循环') {
           if (this.playMode === '列表循环') { this.changeMusic(1) } else {
@@ -546,12 +545,11 @@ export default {
               const mill = item.slice(item.indexOf('.') + 1, item.indexOf(']'))
               // 歌词
               const lrc = item.slice(item.indexOf(']') + 1, item.length)
-              // 毫秒
+              // 总时间
               const time = parseInt(min) * 60 * 1000 + parseInt(sec) * 1000 + parseInt(mill)
 
               return { min, sec, mill, lrc, time }
             })
-
             // 处理一下翻译的歌词数组，把空的去掉
             arr.forEach((item
               , i) => {
@@ -565,7 +563,6 @@ export default {
                 arr2.splice(i, 1)
               }
             })
-
             arr.forEach((item
               , i) => {
               if (arr2.length > i) {
@@ -581,7 +578,6 @@ export default {
         }
         this.lyric1 = arr
         // 每次歌词变换说明切歌了，要滚动回顶部
-
         setTimeout(() => {
           this.addDuration()
         }, 1200)

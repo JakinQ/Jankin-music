@@ -13,6 +13,7 @@
 <script >
 import { useRoute } from 'vue-router'
 import { onMounted, reactive } from 'vue'
+import { useStore } from 'vuex'
 import { getItemMusicList, getItemList } from '../request/api/item'
 import itemMusicTop from '../components/item/itemMusicTop.vue'
 import itemMusicList from '../components/item/itemMusicList.vue'
@@ -24,17 +25,18 @@ export default {
       itemList: []// 歌单的歌曲
 
     })
+    const store = useStore()
     onMounted(async () => {
       //   console.log(useRoute())
       const id = useRoute().query.id
       // console.log('id:', id)
       // 获取歌单列表
-      const res = await getItemMusicList(id)
+      const res = await getItemMusicList(id, localStorage.getItem('cookie'))
       // console.log('歌单列表', res)
       state.playlist = res.data.playlist
       // console.log(state.playlist)
       // 获取歌单歌曲
-      const result = await getItemList({ id, limit: 70, offset: 0 })
+      const result = await getItemList({ id, limit: 70, offset: 0, cookie: localStorage.getItem('cookie') })
       // console.log('playlist', state.playlist)
       // state.itemList = result.data.songs
 

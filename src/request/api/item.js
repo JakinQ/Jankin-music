@@ -1,10 +1,10 @@
 import service from '../index'
 
 // 获取歌单详情数据
-export function getItemMusicList (id) {
+export function getItemMusicList (id, cookie) {
   return service({
     method: 'GET',
-    url: `/playlist/detail?id=${id}`
+    url: `/playlist/detail?id=${id}&cookie=${cookie}`
   })
 }
 
@@ -12,7 +12,7 @@ export function getItemMusicList (id) {
 export function getItemList (data) {
   return service({
     method: 'GET',
-    url: `/playlist/track/all?id=${data.id}&limit=${data.limit}&offset=${data.offset}`
+    url: `/playlist/track/all?id=${data.id}&limit=${data.limit}&offset=${data.offset}&cookie=${data.cookie}`
   })
 }
 

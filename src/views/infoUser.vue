@@ -291,7 +291,6 @@ export default {
     // const res = await getUserMore(localStorage.getItem('cookie'))
     // console.log(localStorage.getItem('cookie'))
     const res = await getUserMore(localStorage.getItem('cookie'))
-
     this.songCount = res.data
     // 获取用户的歌单
     const res2 = await getUserSongList(this.userList.profile.userId)
