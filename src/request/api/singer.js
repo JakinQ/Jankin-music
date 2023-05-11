@@ -14,10 +14,10 @@ export function getTopSinger () {
 }
 
 // 获取歌手
-export function getSinger (type, area) {
+export function getSinger (type, area, cookie) {
   return service({
     method: 'GET',
-    url: `/artist/list?type=${type}&area=${area}&limit=80`
+    url: `/artist/list?type=${type}&area=${area}&limit=80&cookie=${cookie}`
   })
 }
 // type：-1:全部 1:男歌手 2:女歌手 3:乐队  area：-1:全部 7华语 96欧美 8:日本 16韩国0:其他

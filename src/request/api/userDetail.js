@@ -1,10 +1,10 @@
 // 获取用户详细信息
 import service from '../index'
 
-export function getSingerDetail (id) {
+export function getSingerDetail (id, cookie) {
   return service({
     method: 'get',
-    url: `/artist/detail?id=${id}`
+    url: `/artist/detail?id=${id}&cookie=${cookie}`
 
   })
 }

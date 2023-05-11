@@ -41,7 +41,7 @@ export default {
     // console.log(this.$route.path)
   },
   computed: {
-    ...mapState(['userList'])
+    ...mapState(['userList', 'timeS'])
   },
   methods: {
     // comment2
@@ -53,28 +53,28 @@ export default {
 
       //   t, type, content, id, type:0: 歌曲 1: mv 2: 歌单 3: 专辑 4: 电台 5: 视频 6: 动态
       if (this.mvOrVideo === 'mv') {
-        const res = await comment2(1, this.comment, this.ids, 1)
+        const res = await comment2(1, this.comment, this.ids, 1, this.timeS)
         // console.log(res)
         if (res.data.code === 200) this.$toast('评论成功')
       } else if (this.mvOrVideo === 'video') {
-        const res = await comment2(1, this.comment, this.ids, 5)
+        const res = await comment2(1, this.comment, this.ids, 5, this.timeS)
         // console.log(res)
         if (res.data.code === 200) this.$toast('评论成功')
       } else {
         if (this.type === 'song') {
-          const res = await comment2(1, this.comment, this.$route.query.id, 0)
+          const res = await comment2(1, this.comment, this.$route.query.id, 0, this.timeS)
           // console.log(res)
           if (res.data.code === 200) {
             this.$toast('评论成功')
           }
         }
         if (this.type === 'album') {
-          const res = await comment2(1, this.comment, this.$route.query.id, 3)
+          const res = await comment2(1, this.comment, this.$route.query.id, 3, this.timeS)
           //   console.log(res)
           if (res.data.code === 200) this.$toast('评论成功')
         }
         if (this.type === 'list') {
-          const res = await comment2(1, this.comment, this.$route.query.id, 2)
+          const res = await comment2(1, this.comment, this.$route.query.id, 2, this.timeS)
           // console.log(res)
           if (res.data.code === 200) this.$toast('评论成功')
         }

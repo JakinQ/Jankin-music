@@ -84,9 +84,9 @@ export function likeList (uid, cookie) {
   })
 }
 // 喜欢音乐
-export function like (id, bool) {
+export function like (id, bool, cookie) {
   return service({
     method: 'GET',
-    url: `/like?id=${id}&like=${bool}`
+    url: `/like?id=${id}&like=${bool}&cookie=${cookie}`
   })
 }

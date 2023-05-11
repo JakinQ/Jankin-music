@@ -18,5 +18,4 @@ app.use(store)
 app.use(router)
 // app.use(VueVideoPlayer)
 app.mount('#app')
-
 // 配置请求根路径

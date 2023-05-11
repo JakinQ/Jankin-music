@@ -154,6 +154,7 @@ export default {
     // const timestamp = Date.now()
     // const res = await getPreFm(timestamp)
     // this.perFmList = res.data.data
+    this.$refs.audio.volume = 0.1
   },
   methods: {
     changLoop () {
@@ -285,8 +286,7 @@ export default {
     },
 
     perFm: function () {
-      // if (this.perFm === true) { this.updatePlayMode('列表循环') }
-      // console.log('perfm', this.perFm)
+
     },
 
     isPlaying: function () {

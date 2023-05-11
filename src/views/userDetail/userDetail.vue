@@ -286,6 +286,8 @@
 
 <script>
 import { getSingerDetail, getAlbum, getSingerHot, getSingerDesc, getSingerToplist, getSingerFans, followUser, followSinger, getUserDynamic } from '../../request/api/userDetail'
+import { concernList } from '@/request/api/item'
+
 import { Dialog } from 'vant'
 import songs from './songs'
 import album from './album'
@@ -371,15 +373,16 @@ export default {
     // console.log(album)
     this.albumList = album.data
     this.albumList.hotAlbums.sort((a, b) => b.publishTime - a.publishTime)
-    // console.log(this.albumList)
-    // console.log(JSON.stringify(this.userList))
-    // console.log(this.$route.query.id)
-    // const res = await getSingerDetail(2116)// 陈奕迅
-    // const res = await getSingerDetail(5781)//薛之谦  7763邓紫棋//33927412夜游
-    const res = await getSingerDetail(this.$route.query.id)
+    // console.log(this.follow)
+    const res = await getSingerDetail(this.$route.query.id, localStorage.getItem('cookie'))
     this.singerDetail = res.data.data
-    // console.log(res)
-
+    // if (JSON.stringify(this.userList) !== '{}') {
+    //   // 如果登录，判断是否关注。先获取用户关注列表
+    //   const arr = await concernList(this.userList.userPoint.userId)
+    //   // 通过关注列表查找歌手id，返回不为空则表示关注了
+    //   const bool = arr.data.follow.find(item => item.userId === this.singerDetail.user.userId)
+    //   if (bool) this.follow = true
+    // }
     // console.log(this.singerDetail)
     this.updateArray(this.singerDetail.artist, 500)
     // console.log('歌手数据', res.data.data)
@@ -410,7 +413,6 @@ export default {
     const result = await getSingerFans(this.$route.query.id)
     // console.log(result)
     this.fansCount = result.data.data
-    // console.log('fansCount', this.fansCount)
 
     const hot = await getSingerHot(this.$route.query.id)
     this.hotSongs = hot.data.songs

@@ -97,7 +97,7 @@ export default {
           localStorage.setItem('cookie', this.cookie)
 
           // 更新cookie
-          // console.log(res.data.cookie)
+          console.log(res.data.cookie)
           clearInterval(check)
           const user = await getUser1(this.cookie, nowtime)
           // console.log(user)

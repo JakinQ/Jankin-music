@@ -135,6 +135,7 @@ export default {
   async created () {
     // const level = await getLevel()
     // this.level = level.data.data.level
+    // console.log(document.cookie)
     this.level = this.userList.level
   },
   computed: {
@@ -190,6 +191,7 @@ export default {
     me: function () {
       this.foundActive = false
       this.$router.push('/infoUser')
+      // this.intoDetail(this.userList.profile.userId)
     },
     myFriend: function () {
       this.$router.push('/concernList')

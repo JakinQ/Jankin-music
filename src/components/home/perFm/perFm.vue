@@ -218,15 +218,6 @@ export default {
     // 第一次进入sirenfm先获取一次新数组，当本来的三首歌用完后再用这个
     this.addNewList()
     this.getCommentCount()
-    // console.log(this.perFmList)
-    // this.perFmList.forEach(element => {
-    //   element.artists.forEach(async (item, index) => {
-    //     const res = await getSingerDetail(item.id)
-    //     console.log(res.data.data.artist.cover)
-    //     this.bgImg[index] = res.data.data.artist.cover
-    //     console.log(this.bgImg[index])
-    //   })
-    // })
 
     // this.musicDetail = this.itemList[this.playListIndex]
     // console.log(this.musicDetail)
@@ -369,21 +360,16 @@ export default {
     },
     // 下一首
     changeMusic: function (num) {
-      // this.$refs.musicLyric.scrollTo({
-      //   top: 0,
-      //   behavior: 'smooth'
-      // })
-
-      // const p = document.getElementById('br')
-      // p.className += 'active'
       if (this.playListIndex === this.perFmList.length - 1) {
         this.perFmList.splice(0, this.perFmList.length - 1)
         // const res = this.perFmList
         // console.log('删除后的数组', res)
+        // console.log('新数组', this.newList)
+        // 修改前的接口一次获取三首歌，可以用这个代码
+        // this.perFmList.push(this.newList[0])
+        // this.perFmList.push(this.newList[1])
+        // this.perFmList.push(this.newList[2])
         this.perFmList.push(this.newList[0])
-        this.perFmList.push(this.newList[1])
-        this.perFmList.push(this.newList[2])
-
         // console.log('新添加后的数组', this.perFmList)
         // 添加完了要换新数组
         this.addNewList()
@@ -450,7 +436,7 @@ export default {
     },
     async likeOrDislike (bool) {
       // if (JSON.stringify(this.userList) !== '{}') {
-      const res = await like(this.musicList.id, bool)
+      const res = await like(this.musicList.id, bool, localStorage.getItem('cookie'))
       if (res.data.code === 200 && bool === true) {
         this.isLike = true
       } else if (res.data.code === 200 && bool === false) {
@@ -460,7 +446,7 @@ export default {
     },
     async deleteFm (id) {
       // console.log('fmTrash', id)
-      const res = await fmTrash(id)
+      const res = await fmTrash(id, localStorage.getItem('cookie'))
       if (res.data.code === 200) {
         this.$toast({
           message: '我们会努力向你推荐更喜欢的内容',

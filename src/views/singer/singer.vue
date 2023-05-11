@@ -179,7 +179,7 @@ export default {
     // const res = await loginStatus()
     // console.log(res)
 
-    const singerList = await getSinger(1, 7)
+    const singerList = await getSinger(1, 7, localStorage.getItem('cookie'))
 
     // console.log(singerList)
     // this.follow.length = singerList.data.artists.length
@@ -192,7 +192,7 @@ export default {
     })
     // this.follow.push({ bool: false })
     // this.follow.length = 1
-    // console.log(this.follow)
+
     // this.follow.push({ bool: false })
 
     this.updateArray(singerList.data.artists)
@@ -240,7 +240,7 @@ export default {
       // 获取点击标签后的对应数据：点击的地区代码和 歌手类型代码
       const area = this.primaryTabs[this.activePrimaryTab].area
       const type = this.primaryTabs[this.activePrimaryTab].secondaryTabs[this.activeSecondaryTab].type
-      const res = await getSinger(type, area)
+      const res = await getSinger(type, area, localStorage.getItem('cookie'))
       this.follow.length = 0
       this.unFollow.length = 0
       res.data.artists.forEach(element => {
@@ -257,7 +257,7 @@ export default {
       this.loading = true
       const area = this.primaryTabs[this.activePrimaryTab].area
       const type = this.primaryTabs[this.activePrimaryTab].secondaryTabs[this.activeSecondaryTab].type
-      const res = await getSinger(type, area)
+      const res = await getSinger(type, area, localStorage.getItem('cookie'))
       this.follow.length = 0
       this.unFollow.length = 0
       res.data.artists.forEach(element => {
@@ -269,7 +269,7 @@ export default {
       this.updateArray(res.data.artists)
       this.singers = res.data.artists.sort((a, b) => b.fansCount - a.fansCount)
       this.loading = false
-      // console.log(this.singers)
+      console.log(this.singers)
       //   console.log('onClickPrimaryTabs ', this.primaryTabs[this.activePrimaryTab].area)
       //   console.log('onClickSecondaryTabs', this.primaryTabs[this.activePrimaryTab].secondaryTabs[this.activeSecondaryTab].type)
     },

@@ -143,10 +143,10 @@ export function getPreFm (timestamp) {
   })
 }
 // 把私人fm音乐放进垃圾堆
-export function fmTrash (id) {
+export function fmTrash (id, cookie) {
   return service({
     method: 'GET',
-    url: `/fm_trash?id=${id}`
+    url: `/fm_trash?id=${id}&cookie=${cookie}`
   })
 }
 // 歌手详情

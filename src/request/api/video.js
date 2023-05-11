@@ -129,10 +129,10 @@ export function checkMusicFree (feeId) {
 }
 
 // 发送/删除评论
-export function comment2 (t, content, id, type) { // type 2/6
+export function comment2 (t, content, id, type, cookie) { // type 2/6
   return service({
     method: 'GET',
-    url: `/comment?t=${t}&content=${content}&id=${id}&type=${type}`
+    url: `/comment?t=${t}&content=${content}&id=${id}&type=${type}&cookie=${cookie}`
   })
 }
 // t:1 发送, 2 回复 0 删除

@@ -62,10 +62,16 @@ export function getPlaylistComment (id, limit) {
 }
 
 // 发送/删除评论
-export function comment (t, content, id, type) {
+// export function comment (t, content, id, type, cookie) {
+//   return service({
+//     method: 'GET',
+//     url: `/comment?t=${t}&content=${content}&id=${id}&type=${type}&cookie=${cookie}`
+//   })
+// }
+export function comment (t, content, id, type, timestamp) {
   return service({
     method: 'GET',
-    url: `/comment?t=${t}&content=${content}&id=${id}&type=${type}`
+    url: `/comment?t=${t}&content=${content}&id=${id}&type=${type}&timestamp=${timestamp}`
   })
 }
 // t:1 发送, 2 回复 0 删除
