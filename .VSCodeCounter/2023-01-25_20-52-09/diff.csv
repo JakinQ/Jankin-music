@@ -1,0 +1,17 @@
+"filename", "language", "JavaScript", "Vue", "HTML", "JSON", "comment", "blank", "total"
+"d:\qianduan\musicProject\ACGMusic\music\babel.config.js", "JavaScript", 7, 0, 0, 0, 10, 1, 18
+"d:\qianduan\musicProject\ACGMusic\music\package-lock.json", "JSON", 0, 0, 0, -36, 0, 0, -36
+"d:\qianduan\musicProject\ACGMusic\music\package.json", "JSON", 0, 0, 0, 1, 0, 0, 1
+"d:\qianduan\musicProject\ACGMusic\music\public\index.html", "HTML", 0, 0, 3, 0, 1, 1, 5
+"d:\qianduan\musicProject\ACGMusic\music\src\components\home\TopNav.vue", "Vue", 0, 8, 0, 0, 0, 0, 8
+"d:\qianduan\musicProject\ACGMusic\music\src\components\home\iconList.vue", "Vue", 0, 4, 0, 0, -1, 0, 3
+"d:\qianduan\musicProject\ACGMusic\music\src\components\home\perFm\perFm.vue", "Vue", 0, -2, 0, 0, 2, 0, 0
+"d:\qianduan\musicProject\ACGMusic\music\src\main-dev.js", "JavaScript", 12, 0, 0, 0, 8, 5, 25
+"d:\qianduan\musicProject\ACGMusic\music\src\main-prod.js", "JavaScript", 10, 0, 0, 0, 9, 4, 23
+"d:\qianduan\musicProject\ACGMusic\music\src\main.js", "JavaScript", -2, 0, 0, 0, 2, 0, 0
+"d:\qianduan\musicProject\ACGMusic\music\src\request\index.js", "JavaScript", 0, 0, 0, 0, 1, 0, 1
+"d:\qianduan\musicProject\ACGMusic\music\src\views\userDetail\userDetail.vue", "Vue", 0, -2, 0, 0, 2, 0, 0
+"d:\qianduan\musicProject\ACGMusic\music\src\views\userDetail\video.vue", "Vue", 0, 2, 0, 0, 1, 0, 3
+"d:\qianduan\musicProject\ACGMusic\music\src\views\userDetail\videoDetail.vue", "Vue", 0, 9, 0, 0, 1, 0, 10
+"d:\qianduan\musicProject\ACGMusic\music\vue.config.js", "JavaScript", 11, 0, 0, 0, 5, 4, 20
+"Total", "-", 38, 19, 3, -35, 41, 15, 81
